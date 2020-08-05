@@ -8,4 +8,6 @@ public final class Vote{
         this.userId = userId;
         this.voteValue = voteValue;
     }
+
+    //Will add getters and setters as per requirement
 }

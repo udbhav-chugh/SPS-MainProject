@@ -1,6 +1,5 @@
-This directory is where you'll write all of your code!
+Optional features:
 
-By default it contains a barebones web app. To run a local server, execute this
-command:
+Mutiple images for product idea.
+Voting for comments.
 
-mvn package appengine:run

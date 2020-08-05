@@ -4,9 +4,9 @@ import java.util.Date;
 public final class User{
     private final String email;
     private final String name;
-    private final Date dob;
-    private final String teamName;
-    private final String imageUrl;
+    private Date dob;
+    private String teamName;
+    private String imageUrl;
 
     public User(String email, String name, Date dob, String teamName, String imageUrl){
         this.email = email;
@@ -15,4 +15,7 @@ public final class User{
         this.teamName = teamName;
         this.imageUrl = imageUrl;
     }
+
+    //Will add getters and setters as per requirement
+
 }

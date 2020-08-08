@@ -37,17 +37,17 @@
                     </button>
                 </div>
             <!--Form to take login information input-->
-                <form id = "login-form" method = "POST" enctype="multipart/form-data">
+                <form id = "login-form" method = "POST" action="/login">
                     <div class="modal-body mx-3">
                         <div class="md-form mb-5">
                             <i class="fas fa-user prefix grey-text"></i>
-                            <input type="text" name= "author" id="author" class="form-control validate" required>
-                            <label data-error="wrong" data-success="right" for="author">Your Email</label>
+                            <input type="email" name= "useremail" id="useremail" class="form-control validate" required>
+                            <label data-error="wrong" data-success="right" for="useremail">Your Email</label>
                         </div>
                         <div class="md-form mb-5">
                             <i class="fas fa-key prefix grey-text"></i>
-                            <input type="password" name= "organization" id="organization" class="form-control validate" required>
-                            <label data-error="wrong" data-success="right" for="organization">Password</label>
+                            <input type="password" name= "password" id="password" class="form-control validate" required>
+                            <label data-error="wrong" data-success="right" for="password">Password</label>
                         </div>
                     </div>
                 </form>

@@ -8,9 +8,8 @@ public final class ProductIdea{
         Agriculture,
         Sustainbility,
         Privacy,
-        Ed-Tech,
-        Travel and Tourism,
-        Other  
+        TravelandTourism,
+        Other,  
     }
 
     private final String title;
@@ -28,7 +27,7 @@ public final class ProductIdea{
     // private int downvotes;
 
 
-    public ProductIdea(String title, String authorID, long timestamp, ArrayList<category> categories, String imageUrl, String videoUrl, String description=""){
+    public ProductIdea(String title, String authorID, long timestamp, ArrayList<category> categories, String imageUrl, String videoUrl, String description){
         this.title = title;
         this.authorID = authorID;
         this.timestamp = timestamp;

@@ -66,7 +66,7 @@ public class SentimentScoreServlet extends HttpServlet {
     response.getWriter().println(gson.toJson(comments));
   }
 
-public double getSentimentScore(String text){
+private double getSentimentScore(String text){
     Document doc =
         Document.newBuilder().setContent(text).setType(Document.Type.PLAIN_TEXT).build();
     LanguageServiceClient languageService = LanguageServiceClient.create();

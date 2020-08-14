@@ -18,8 +18,16 @@ package com.google.sps.servlets;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.FetchOptions;
+import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.PreparedQuery.TooManyResultsException;
 import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.CompositeFilter;
+import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
+import com.google.appengine.api.datastore.Query.Filter;
+import com.google.appengine.api.datastore.Query.FilterOperator;
+import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.sps.data.Comment;
 import com.google.gson.Gson;
@@ -36,19 +44,35 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 
+  private static DatastoreService datastore;
+  private static UserService userService;
+
   @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    UserService userService = UserServiceFactory.getUserService();
+  public void init(){
+    datastore = DatastoreServiceFactory.getDatastoreService();
+    userService = UserServiceFactory.getUserService();
+  }
+
+  @Override
+  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException { 
 
     String thisUrl = request.getRequestURI();
 
     response.setContentType("text/html");
     if (request.getUserPrincipal() != null) {
+        String email = request.getUserPrincipal().getName();
+        Filter propertyFilter = new FilterPredicate("email", FilterOperator.EQUAL, email);
+        Query query = new Query("User").setFilter(propertyFilter);
+        List<Entity> results = datastore.prepare(query).asList(FetchOptions.Builder.withDefaults());
+        if(results.size() == 0){
+            Entity taskEntity = new Entity("User");
+            taskEntity.setProperty("email", email);
+            datastore.put(taskEntity);
+        }
         response.sendRedirect("/dashboard.html");
-        
+                
     } else {
         response.sendRedirect(userService.createLoginURL(thisUrl));
-
     }
   }
 

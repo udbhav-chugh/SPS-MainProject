@@ -13,7 +13,7 @@ public final class ProductIdea{
     }
 
     private final String title;
-    private final String authorID;
+    private final long authorID;
     private final long timestamp;
     private final ArrayList<category> categories;
     private final String imageUrl;
@@ -27,7 +27,7 @@ public final class ProductIdea{
     // private int downvotes;
 
 
-    public ProductIdea(String title, String authorID, long timestamp, ArrayList<category> categories, String imageUrl, String videoUrl, String description){
+    public ProductIdea(String title, long authorID, long timestamp, ArrayList<category> categories, String imageUrl, String videoUrl, String description){
         this.title = title;
         this.authorID = authorID;
         this.timestamp = timestamp;

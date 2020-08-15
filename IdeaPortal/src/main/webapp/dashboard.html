@@ -18,7 +18,7 @@
 
   </head>
 
-  <body id="page-top" onload="fetchBlobstoreUrlAndShowForm();">
+  <body id="page-top" onload="fetchBlobstoreUrlAndShowForm(); fetchBlobstoreUrlAndShowIdeaForm();">
     <header class="masthead">
         <div class="container">
           <div class="masthead-heading text-uppercase">Welcome to Dashboard</div>
@@ -27,6 +27,9 @@
           <button class="btn btn-default" type="submit" form="logoutform" value="Submit">Logout</button>
           <div class="text-center">
             <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#updateInfoForm">Update Information</a>
+          </div>
+          <div class="text-center">
+            <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#postIdeaForm">Post An Idea</a>
           </div>
         </div>
     </header>
@@ -65,6 +68,49 @@
                 </form>
                 <div class="modal-footer d-flex justify-content-center">
                     <button class="btn btn-default" type="submit" form="updateinfo-form" value="Submit">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="postIdeaForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold">Post an Idea</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            <!--Form to take product idea input-->
+                <form id = "postidea-form" method = "POST" enctype="multipart/form-data">
+                    <div class="modal-body mx-3">
+                        <div class="md-form mb-5">
+                            <i class="fas fa-address-book prefix grey-text"></i>
+                            <input type="text" name= "title" id="title" class="form-control validate" required>
+                            <label data-error="wrong" data-success="right" for="title">Idea Title</label>
+                        </div>
+                        <!-- <div class="md-form mb-5">
+                            <i class="fas fa-building prefix grey-text"></i>
+                            <input type="text" name= "teamname" id="teamname" class="form-control validate" required>
+                            <label data-error="wrong" data-success="right" for="teamname">Team Name</label>
+                        </div> -->
+                        <div class="md-form mb-5">
+                            <i class="fas fa-comment-dots prefix grey-text"></i>
+                            <textarea type="text" name= "description" id="description" class="form-control validate" required></textarea>
+                        </div>
+                        <div class="md-form mb-5">
+                            <i class="fas fa-camera prefix grey-text"></i>
+                            <input type="file" name="image" accept="image/gif, image/jpeg, image/png, image/jpg">
+                        </div>
+                        <!-- <div class="md-form mb-5">
+                            <i class="fas fa-camera prefix grey-text"></i>
+                            <input type="file" name="video" accept="video/mp4, 	video/webm, video/ogg">
+                        </div> -->
+                    </div>
+                </form>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button class="btn btn-default" type="submit" form="postidea-form" value="Submit">Submit</button>
                 </div>
             </div>
         </div>

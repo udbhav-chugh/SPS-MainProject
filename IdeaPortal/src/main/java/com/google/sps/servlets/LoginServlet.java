@@ -29,7 +29,6 @@ import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.appengine.api.datastore.Query.SortDirection;
-import com.google.sps.data.Comment;
 import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +45,7 @@ public class LoginServlet extends HttpServlet {
 
   private static DatastoreService datastore;
   private static UserService userService;
+  public static String email; //kept as public to make it accessible to UpdateProfile
 
   @Override
   public void init(){
@@ -60,7 +60,7 @@ public class LoginServlet extends HttpServlet {
 
     response.setContentType("text/html");
     if (request.getUserPrincipal() != null) {
-        String email = request.getUserPrincipal().getName();
+        email = request.getUserPrincipal().getName();
         Filter propertyFilter = new FilterPredicate("email", FilterOperator.EQUAL, email);
         Query query = new Query("User").setFilter(propertyFilter);
         List<Entity> results = datastore.prepare(query).asList(FetchOptions.Builder.withDefaults());

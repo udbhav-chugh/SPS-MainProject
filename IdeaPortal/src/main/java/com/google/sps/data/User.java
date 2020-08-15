@@ -3,7 +3,7 @@ import java.util.Date;
 
 public final class User{
     private final String email;
-    private final String name;
+    private String name;
     private Date dob;
     private String teamName;
     private String imageUrl;

@@ -77,13 +77,16 @@ public class PostIdeaServlet extends HttpServlet {
     // Get the input from the form.
     String title = request.getParameter("title");
     String description = request.getParameter("description");
+    String category = request.getParameter("category");
     long timestamp = System.currentTimeMillis();
     String imageUrl = getUploadedFileUrl(request, "image");
+    // System.out.println(request.getParameter("category").getClass().getName());
 
     Entity taskEntity = new Entity("ProductIdea");
     taskEntity.setProperty("authorid",user.getKey().getId());
     taskEntity.setProperty("title", title);
     taskEntity.setProperty("description", description);
+    taskEntity.setProperty("category", category);
     taskEntity.setProperty("timestamp", timestamp);
     taskEntity.setProperty("imageUrl",imageUrl);
 

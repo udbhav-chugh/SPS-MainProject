@@ -5,17 +5,17 @@ import java.util.Arrays;
 
 public final class ProductIdea{
     enum category {
-        Agriculture,
         Sustainbility,
         Privacy,
-        TravelandTourism,
+        Agriculture,
+        Tourism,
         Other,  
     }
 
     private final String title;
     private final long authorID;
     private final long timestamp;
-    private final ArrayList<category> categories;
+    private final category categories;
     private final String imageUrl;
     private final String videoUrl;
     private final String description;
@@ -27,7 +27,7 @@ public final class ProductIdea{
     // private int downvotes;
 
 
-    public ProductIdea(String title, long authorID, long timestamp, ArrayList<category> categories, String imageUrl, String videoUrl, String description){
+    public ProductIdea(String title, long authorID, long timestamp, category categories, String imageUrl, String videoUrl, String description){
         this.title = title;
         this.authorID = authorID;
         this.timestamp = timestamp;

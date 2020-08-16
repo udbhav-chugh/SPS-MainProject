@@ -35,3 +35,7 @@ function fetchBlobstoreUrlAndShowIdeaForm() {
         messageForm.action = uploadUrl;
       });
 }
+
+$(function(){
+    $('select').selectpicker();
+});

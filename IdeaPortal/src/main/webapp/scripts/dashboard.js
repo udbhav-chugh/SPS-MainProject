@@ -13,6 +13,7 @@
 // limitations under the License.
 
 function fetchBlobstoreUrlAndShowForm() {
+    console.log("hello 1")
   fetch('/blobstore-profile-upload-url')
       .then((response) => {
         return response.text();
@@ -22,3 +23,19 @@ function fetchBlobstoreUrlAndShowForm() {
         messageForm.action = uploadUrl;
       });
 }
+
+function fetchBlobstoreUrlAndShowIdeaForm() {
+    console.log("hello hello")
+  fetch('/blobstore-idea-upload-url')
+      .then((response) => {
+        return response.text();
+      })
+      .then((uploadUrl) => {
+        const messageForm = document.getElementById('postidea-form');
+        messageForm.action = uploadUrl;
+      });
+}
+
+$(function(){
+    $('select').selectpicker();
+});

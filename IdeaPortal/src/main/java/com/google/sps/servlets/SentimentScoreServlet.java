@@ -25,14 +25,47 @@ import com.google.cloud.language.v1.Sentiment;
 public class SentimentScoreServlet extends HttpServlet {
 
   @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+  public void doGet(HttpServletRequest request, HttpServletResponse response, final long ProjectID) throws IOException {
+
+    List<Comment> comments= getListofCommentObject(final long ProjectID) //PreparedQuery results);
+
     
-    /** query statement needs to be updated in case **/
-    Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
+    /**
+    Create Comment Entity and use put method in case Datastore will be updated 
+    with the sentiment score.
+    **/
+      
+    }
 
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    Gson gson = new Gson();
+
+    response.setContentType("application/json;");
+    response.getWriter().println(gson.toJson(comments));
+  }
+
+
+
+private List<Comment> getListofCommentObject(final long ProjectID){
+    Query<Entity> query= buildQuery("Comment", ProjectID);
+    PreparedQuery results= getQueryResults(query);
+
+    List<Comment> comments= getProjectID_Comment(results);
+}
+
+private Query<Entity> buildQuery(string kind_name, final long ProjectID){
+     Query<Entity> query = Query.newEntityQueryBuilder().setKind("Comment").setFilter(PropertyFilter.eq("ProjectID", ProjectID))
+        .build();
+    return query;
+}
+
+private PreparedQuery getQueryResults(Query<Entity> query){
+     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
+    return results;
+}
 
+
+private List<Comment> getProjectID_Comment(PreparedQuery results){
     List<Comment> comments = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
       long id = entity.getKey().getId();
@@ -53,18 +86,7 @@ public class SentimentScoreServlet extends HttpServlet {
       suggestionKeywords,sentimantAnalysisScore,timestamp);
       
       comments.add(comment_obj);
-    /**
-    Create Comment Entity and use put method in case Datastore will be updated 
-    with the sentiment score.
-    **/
-      
-    }
-
-    Gson gson = new Gson();
-
-    response.setContentType("application/json;");
-    response.getWriter().println(gson.toJson(comments));
-  }
+}
 
 private double getSentimentScore(String text){
     Document doc =
@@ -76,8 +98,6 @@ private double getSentimentScore(String text){
     languageService.close();
     return score;
 }
-
-
 
   
 }

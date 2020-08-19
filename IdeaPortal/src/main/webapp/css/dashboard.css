@@ -54,3 +54,12 @@ header.masthead .masthead-heading {
   color: #5cb85c;
   font-weight:bold;
 }
+
+.full-width {
+    width: 90vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -45vw;
+    margin-right: 45vw;
+}

@@ -53,7 +53,7 @@ private List<Comment> getListofCommentObject(final long ProjectID){
 }
 
 private Query<Entity> buildQuery(string kind_name, final long ProjectID){
-     Query<Entity> query = Query.newEntityQueryBuilder().setKind("Comment").setFilter(PropertyFilter.eq("ProjectID", ProjectID))
+     Query<Entity> query = Query.newEntityQueryBuilder().setKind(kind_name).setFilter(PropertyFilter.eq("ProjectID", ProjectID))
         .build();
     return query;
 }

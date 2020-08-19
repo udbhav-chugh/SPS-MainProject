@@ -52,14 +52,6 @@ public class SentimentScoreServlet extends HttpServlet {
 
     ProjectVote obj= getProjectVoteObject(ProjectID) ;
 
-    
-    /**
-    Create Comment Entity and use put method in case Datastore will be updated 
-    with the sentiment score.
-    **/
-      
-    
-
     Gson gson = new Gson();
 
     response.setContentType("application/json;");

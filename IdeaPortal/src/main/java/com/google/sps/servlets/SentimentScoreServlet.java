@@ -46,17 +46,14 @@ public class SentimentScoreServlet extends HttpServlet {
 
 
 private List<Comment> getListofCommentObject(final long ProjectID){
-    Query<Entity> query= buildQuery("Comment", ProjectID);
+    Query<Entity> query = Query.newEntityQueryBuilder().setKind("Comment").setFilter(PropertyFilter.eq("ProjectID", ProjectID))
+        .build();
+   
     PreparedQuery results= getQueryResults(query);
 
     List<Comment> comments= getProjectID_Comment(results);
 }
 
-private Query<Entity> buildQuery(string kind_name, final long ProjectID){
-     Query<Entity> query = Query.newEntityQueryBuilder().setKind("Comment").setFilter(PropertyFilter.eq("ProjectID", ProjectID))
-        .build();
-    return query;
-}
 
 private PreparedQuery getQueryResults(Query<Entity> query){
      DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();

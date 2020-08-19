@@ -20,7 +20,7 @@
 
   </head>
 
-  <body id="page-top" onload="addIdeasToDashboard(); fetchBlobstoreUrlAndShowForm(); fetchBlobstoreUrlAndShowIdeaForm();">
+  <body id="page-top" onload="addIdeasToDashboard(); addPersonalInfoToDashboard(); fetchBlobstoreUrlAndShowForm(); fetchBlobstoreUrlAndShowIdeaForm();">
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -138,11 +138,20 @@
                 <h2 class="section-heading text-uppercase">Personal Details</h2>
             </div>
             <br>
-            <p class="text-muted">I am currently pursuing B.Tech. in Computer Science and Engineering from the Indian Institute of Technology, Guwahati. Over the years, I persevered hard to build upon my skills to become a well-rounded developer. I have done various guided and hobby projects to explore full stack development, software development, machine learning, and systems.</p>
-            <p class="text-muted">
-            I love solving challenges and finding optimized solutions. I spend most of my free time in competitive programming on platforms like Codeforces and Codechef and participating in various sport programming competitions. </p>
-            <p class="text-muted">
-            I am a huge Barcelona fan and can spend hours talking about football. I love playing table tennis, bandminton and chess. I also like watching TV shows mainly from mystery or comedy genre. Feel free to reach out to me and I would love to have a chat!</p>
+            <div class="text-center">
+            <div id="info-container">
+                <!-- Javascript appends personal info here -->
+            </div>
+            </div>
+            <!-- <div class="row">
+                <div class="col-md-6">
+                    <label>User Id</label>
+                </div>
+                <div class="col-md-6">
+                    <p>Kshiti123</p>
+                </div>
+            </div> -->
+            
         </div>
         <div class="col-md-8">
             <br>

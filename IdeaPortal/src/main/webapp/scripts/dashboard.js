@@ -12,22 +12,87 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// <div style="display:inline-block;">
-//     <div class="card mb-3 text-center" style="width: 22rem; margin-right: 1.5em;">
-//         <img class="card-img-top" src="..." alt="Card image cap">
-//         <div class="card-body">
-//             <h4 class="card-title">Product 1</h4>
-//             <b  class="card-text">Locations:</b>
-//             <br/>
-//             <br/>
-//                 <a href="/dashboard.html" class="btn btn-dark">Update Statistics</a>
 
-//                 <!-- <a href="{% url 'main:update_statistics' disaster.id %}" class="btn btn-dark">Update Statistics</a> -->
-//             <br>
-//             <hr>
-//         </div>
-//     </div>
-// </div>
+function getImage(info){
+    var img = document.createElement("img"); 
+    // img.className = "card-img-top";
+    if(info.imageUrl){
+        img.src =  info.imageUrl;
+    }
+    else{
+        img.src="/images/usericon.jpg";
+    }
+    img.style.borderRadius="50%";
+    img.style.width = "200"
+    img.style.height = "200"
+    return img;
+}
+
+function getUnitInfo(s1, s2){
+    var row = document.createElement("div");
+    row.className="row";
+    var col1 = document.createElement("div");
+    col1.className="col-md-6";
+    var label = document.createElement("label");
+    label.innerHTML = s1;
+    var col2 = document.createElement("div");
+    col1.className="col-md-6";
+    var p = document.createElement("p");
+    p.innerHTML = s2;
+
+    col1.appendChild(label);
+    col2.appendChild(p);
+    row.appendChild(col1);
+    row.appendChild(col2);
+    return row;
+}
+
+function getInfo(info){
+    var infoDiv = document.createElement("div");
+    infoDiv.className="tab-content profile-tab";
+    if(info.email){
+        infoDiv.appendChild(getUnitInfo("Email:",info.email));
+    }
+    else{
+        infoDiv.appendChild(getUnitInfo("Email:","Not Updated yet"));
+    }
+    if(info.name){
+        infoDiv.appendChild(getUnitInfo("Name:",info.name));
+    }
+    else{
+        infoDiv.appendChild(getUnitInfo("Name:","Not Updated yet"));
+    }
+    if(info.dob){
+        infoDiv.appendChild(getUnitInfo("DOB:",info.dob));
+    }
+    else{
+        infoDiv.appendChild(getUnitInfo("DOB:","Not Updated yet"));
+    }
+    if(info.teamName){
+        infoDiv.appendChild(getUnitInfo("Team Name:",info.teamName));
+    }
+    else{
+        infoDiv.appendChild(getUnitInfo("Team Name:","Not Updated yet"));
+    }
+
+    return infoDiv;
+}
+
+function addPersonalInfoToDashboard() {
+
+  fetch('/profile-info').then(response => response.json()).then((info) => {
+
+    var infoContainer = document.getElementById('info-container');    
+    infoContainer.appendChild(getImage(info));
+    var lineBreak = document.createElement("br");
+    var lineBreak2 = document.createElement("br");
+
+    infoContainer.appendChild(lineBreak);
+    infoContainer.appendChild(lineBreak2);
+    infoContainer.appendChild(getInfo(info));
+
+  });
+}
 
 function getcardTitle(idea){
     var cardTitle = document.createElement("h4");

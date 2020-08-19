@@ -49,9 +49,10 @@ import com.google.appengine.api.images.ImagesService;
 import com.google.appengine.api.images.ImagesServiceFactory;
 import com.google.appengine.api.images.ServingUrlOptions;
 import java.util.Map;
+import com.google.sps.data.User;
 
 
-@WebServlet("/profile-info-post")
+@WebServlet("/profile-info")
 public class UpdateProfileServlet extends HttpServlet {
 
   private static DatastoreService datastore;
@@ -68,12 +69,7 @@ public class UpdateProfileServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-    // String email = request.getUserPrincipal().getName();
-    Filter propertyFilter = new FilterPredicate("email", FilterOperator.EQUAL, LoginServlet.email);
-    Query query = new Query("User").setFilter(propertyFilter);
-    List<Entity> results = datastore.prepare(query).asList(FetchOptions.Builder.withDefaults());
-    Entity taskEntity = results.get(0);
-
+    Entity taskEntity = getUser();
     // Get the input from the form.
     String name = request.getParameter("name");
     Date dob = new Date();
@@ -94,6 +90,36 @@ public class UpdateProfileServlet extends HttpServlet {
     datastore.put(taskEntity);
 
     response.sendRedirect("/dashboard.html");
+  }
+
+  @Override
+  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    Entity entity = getUser();
+
+    String email = (String) entity.getProperty("email");
+    String name = (String) entity.getProperty("name");
+    Date dob = (Date) entity.getProperty("dob");
+    String teamName = (String) entity.getProperty("teamname");
+    String imageUrl = (String) entity.getProperty("imageUrl");
+    User user = new User(email, name, dob, teamName, imageUrl);
+    String json = convertToJson(user);
+    response.setContentType("application/json;");
+    response.getWriter().println(json);
+  }
+
+  private Entity getUser(){
+    Filter propertyFilter = new FilterPredicate("email", FilterOperator.EQUAL, LoginServlet.email);
+    Query query = new Query("User").setFilter(propertyFilter);
+    List<Entity> results = datastore.prepare(query).asList(FetchOptions.Builder.withDefaults());
+    Entity user = results.get(0);
+    return user;
+  }
+
+  /*Converts a user instance into a JSON string using the Gson library.*/
+  private String convertToJson(User user) {
+    Gson gson = new Gson();
+    String json = gson.toJson(user);
+    return json;
   }
 
 /** Returns a URL that points to the uploaded file, or null if the user didn't upload a file. */

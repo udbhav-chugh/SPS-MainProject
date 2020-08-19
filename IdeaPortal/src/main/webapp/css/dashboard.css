@@ -43,3 +43,14 @@ header.masthead .masthead-heading {
     margin-bottom: 4rem;
   }
 }
+
+/*css for section headings*/
+
+.section-heading {
+  font-size: 2.5rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-family: sans-serif;
+  color: #5cb85c;
+  font-weight:bold;
+}

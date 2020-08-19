@@ -32,22 +32,12 @@
                 <a class="nav-link" href="/feed.html">Feed</a>
             </li>
             </ul>
+
+            <form id="logoutform" method="GET" action="/logout">
+            </form>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" form="logoutform" value="Submit">Logout</button>
         </div>
-    </nav>  
-    <header class="masthead">
-        <div class="container">
-          <div class="masthead-heading text-uppercase">Welcome to Dashboard</div>
-          <form id="logoutform" method="GET" action="/logout">
-          </form>
-          <button class="btn btn-default" type="submit" form="logoutform" value="Submit">Logout</button>
-          <div class="text-center">
-            <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#updateInfoForm">Update Information</a>
-          </div>
-          <div class="text-center">
-            <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#postIdeaForm">Post An Idea</a>
-          </div>
-        </div>
-    </header>
+    </nav>
     <div class="modal fade" id="updateInfoForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -136,6 +126,99 @@
             </div>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <br>
+            <div class="text-center">
+                <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#updateInfoForm">Update Information</a>
+            </div>
+            <br>
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">Personal Details</h2>
+            </div>
+            <br>
+            <p class="text-muted">I am currently pursuing B.Tech. in Computer Science and Engineering from the Indian Institute of Technology, Guwahati. Over the years, I persevered hard to build upon my skills to become a well-rounded developer. I have done various guided and hobby projects to explore full stack development, software development, machine learning, and systems.</p>
+            <p class="text-muted">
+            I love solving challenges and finding optimized solutions. I spend most of my free time in competitive programming on platforms like Codeforces and Codechef and participating in various sport programming competitions. </p>
+            <p class="text-muted">
+            I am a huge Barcelona fan and can spend hours talking about football. I love playing table tennis, bandminton and chess. I also like watching TV shows mainly from mystery or comedy genre. Feel free to reach out to me and I would love to have a chat!</p>
+        </div>
+        <div class="col-md-8">
+            <br>
+            <div class="text-center">
+                <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#postIdeaForm">Post An Idea</a>
+            </div>
+            <br>
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">Previous Ideas Submitted</h2>
+            </div>
+            <br>
+            <div class="card-deck mt-3" style="margin-left: 0rem;"></div>
+                <div style="display:inline-block;">
+                    <div class="card bg-light mb-3 text-center" style="width: 22rem; margin-right: 0.7em;">
+                        <div class="card-body">
+                            <h4 style="color: grey; font-size: large;" class="card-title"><label for="abc">Product 1</label></h4>
+                            <b style="color: grey;" class="card-text">Locations:</b>
+                            <br/>
+                            <br/>
+                                <a href="/dashboard.html" class="btn btn-dark">Update Statistics</a>
+
+                                <!-- <a href="{% url 'main:update_statistics' disaster.id %}" class="btn btn-dark">Update Statistics</a> -->
+                            <br>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+                <div style="display:inline-block;">
+                    <div class="card bg-light mb-3 text-center" style="width: 22rem; margin-right: 0.7em;">
+                        <div class="card-body">
+                            <h4 style="color: grey; font-size: large;" class="card-title"><label for="abc">Product 1</label></h4>
+                            <b style="color: grey;" class="card-text">Locations:</b>
+                            <br/>
+                            <br/>
+                                <a href="/dashboard.html" class="btn btn-dark">Update Statistics</a>
+
+                                <!-- <a href="{% url 'main:update_statistics' disaster.id %}" class="btn btn-dark">Update Statistics</a> -->
+                            <br>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+                <div style="display:inline-block;">
+                    <div class="card bg-light mb-3 text-center" style="width: 22rem; margin-right: 0.7em;">
+                        <div class="card-body">
+                            <h4 style="color: grey; font-size: large;" class="card-title"><label for="abc">Product 1</label></h4>
+                            <b style="color: grey;" class="card-text">Locations:</b>
+                            <br/>
+                            <br/>
+                                <a href="/dashboard.html" class="btn btn-dark">Update Statistics</a>
+
+                                <!-- <a href="{% url 'main:update_statistics' disaster.id %}" class="btn btn-dark">Update Statistics</a> -->
+                            <br>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+                <div style="display:inline-block;">
+                    <div class="card bg-light mb-3 text-center" style="width: 22rem; margin-right: 0.7em;">
+                        <div class="card-body">
+                            <h4 style="color: grey; font-size: large;" class="card-title"><label for="abc">Product 1</label></h4>
+                            <b style="color: grey;" class="card-text">Locations:</b>
+                            <br/>
+                            <br/>
+                                <a href="/dashboard.html" class="btn btn-dark">Update Statistics</a>
+
+                                <!-- <a href="{% url 'main:update_statistics' disaster.id %}" class="btn btn-dark">Update Statistics</a> -->
+                            <br>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+
 
     <!-- Bootstrap JS-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

@@ -48,10 +48,11 @@ import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 import com.google.appengine.api.images.ImagesService;
 import com.google.appengine.api.images.ImagesServiceFactory;
 import com.google.appengine.api.images.ServingUrlOptions;
+import com.google.sps.data.ProductIdea;
 import java.util.Map;
 
 
-@WebServlet("/product-idea-post")
+@WebServlet("/product-idea")
 public class PostIdeaServlet extends HttpServlet {
 
   private static DatastoreService datastore;
@@ -68,12 +69,8 @@ public class PostIdeaServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-    // String email = request.getUserPrincipal().getName();
-    Filter propertyFilter = new FilterPredicate("email", FilterOperator.EQUAL, LoginServlet.email);
-    Query query = new Query("User").setFilter(propertyFilter);
-    List<Entity> results = datastore.prepare(query).asList(FetchOptions.Builder.withDefaults());
-    Entity user = results.get(0);
-
+    Entity user = getUser();
+    long userID = user.getKey().getId();
     // Get the input from the form.
     String title = request.getParameter("title");
     String description = request.getParameter("description");
@@ -83,7 +80,7 @@ public class PostIdeaServlet extends HttpServlet {
     // System.out.println(request.getParameter("category").getClass().getName());
 
     Entity taskEntity = new Entity("ProductIdea");
-    taskEntity.setProperty("authorid",user.getKey().getId());
+    taskEntity.setProperty("authorid",userID);
     taskEntity.setProperty("title", title);
     taskEntity.setProperty("description", description);
     taskEntity.setProperty("category", category);
@@ -93,6 +90,48 @@ public class PostIdeaServlet extends HttpServlet {
     datastore.put(taskEntity);
 
     response.sendRedirect("/dashboard.html");
+  }
+
+  @Override
+  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    Entity user = getUser();
+    long userID = user.getKey().getId();
+
+    Filter propertyFilter = new FilterPredicate("authorid", FilterOperator.EQUAL, userID);
+    Query query = new Query("ProductIdea").setFilter(propertyFilter).addSort("timestamp", SortDirection.DESCENDING);
+
+    PreparedQuery results = datastore.prepare(query);
+    List<ProductIdea> productIdeas = new ArrayList<>();
+    for (Entity entity : results.asIterable()) {
+
+      long productID = (long) entity.getKey().getId();
+      String title = (String) entity.getProperty("title");
+      long authorID = (long) entity.getProperty("authorid");
+      long timestamp = (long) entity.getProperty("timestamp");
+      String category = (String) entity.getProperty("category");
+      String imageUrl = (String) entity.getProperty("imageUrl");
+      String description = (String) entity.getProperty("description");
+      ProductIdea finalProductIdea = new ProductIdea(productID, title, authorID, timestamp, category, imageUrl, description);
+      productIdeas.add(finalProductIdea);
+    }
+    String json = convertToJson(productIdeas);
+    response.setContentType("application/json;");
+    response.getWriter().println(json);
+  }
+
+  private Entity getUser(){
+    Filter propertyFilter = new FilterPredicate("email", FilterOperator.EQUAL, LoginServlet.email);
+    Query query = new Query("User").setFilter(propertyFilter);
+    List<Entity> results = datastore.prepare(query).asList(FetchOptions.Builder.withDefaults());
+    Entity user = results.get(0);
+    return user;
+  }
+
+  /*Converts a list of Comment instance into a JSON string using the Gson library.*/
+  private String convertToJson(List< ProductIdea > productIdeas) {
+    Gson gson = new Gson();
+    String json = gson.toJson(productIdeas);
+    return json;
   }
 
 /** Returns a URL that points to the uploaded file, or null if the user didn't upload a file. */

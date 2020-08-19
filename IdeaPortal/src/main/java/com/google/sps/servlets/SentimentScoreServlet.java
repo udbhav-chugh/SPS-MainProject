@@ -6,11 +6,16 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.datastore.Query.Filter;
+import com.google.appengine.api.datastore.Query.FilterOperator;
+import com.google.appengine.api.datastore.Query.FilterPredicate;
+
 import com.google.gson.Gson;
 import com.google.sps.data.Comment;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -25,17 +30,10 @@ import com.google.cloud.language.v1.Sentiment;
 public class SentimentScoreServlet extends HttpServlet {
 
   @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response, final long ProjectID) throws IOException {
+  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-    List<Comment> comments= getListofCommentObject(final long ProjectID) //PreparedQuery results);
-
-    
-    /**
-    Create Comment Entity and use put method in case Datastore will be updated 
-    with the sentiment score.
-    **/
-      
-    }
+    long ProjectID= Long.parseLong(request.getParameter("productid"));
+    List<Comment> comments= getListofCommentObject(ProjectID);
 
     Gson gson = new Gson();
 
@@ -46,46 +44,56 @@ public class SentimentScoreServlet extends HttpServlet {
 
 
 private List<Comment> getListofCommentObject(final long ProjectID){
-    Query<Entity> query = Query.newEntityQueryBuilder().setKind("Comment").setFilter(PropertyFilter.eq("ProjectID", ProjectID))
-        .build();
+    
    
-    PreparedQuery results= getQueryResults(query);
+    PreparedQuery results= getQueryResults(ProjectID);
 
-    List<Comment> comments= getProjectID_Comment(results);
-}
-
-
-private PreparedQuery getQueryResults(Query<Entity> query){
-     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    PreparedQuery results = datastore.prepare(query);
-    return results;
-}
-
-
-private List<Comment> getProjectID_Comment(PreparedQuery results){
     List<Comment> comments = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
-      long id = entity.getKey().getId();
-      
-     
-     String commentAuthorId= (String) entity.getProperty("commentAuthorId");
-     String suggestion = (String) entity.getProperty("suggestion");
-     ArrayList<String> suggestionKeywords =  entity.getProperty("suggestionKeywords");
-     long timestamp = (long) entity.getProperty("timestamp");
-      
-      String text = (String) entity.getProperty("text");
-      
-      double sentimantAnalysisScore = (double) entity.getProperty("sentimantAnalysisScore");
-      sentimantAnalysisScore= sentimantAnalysisScore==0?getSentimentScore(text):sentimantAnalysisScore;
+        long id = entity.getKey().getId();
+        
+        
+        String commentAuthorId= (String) entity.getProperty("commentAuthorId");
+        String suggestion = (String) entity.getProperty("suggestion");
+       
+        String str[] =   ((String)entity.getProperty("suggestionKeywords")).split(" ");
+        List<String> suggestionKeywords = new ArrayList<String>();
+	    suggestionKeywords = Arrays.asList(str);
+
+        long timestamp = (long) entity.getProperty("timestamp");
+        
+        String text = (String) entity.getProperty("text");
+        
+        double sentimantAnalysisScore = (double) entity.getProperty("sentimantAnalysisScore");
+
+        /** the sentiment analysis score will be calculated and stored when the comment is posted **/
+        
+        //sentimantAnalysisScore= (sentimantAnalysisScore==0?getSentimentScore(text):sentimantAnalysisScore);
 
 
-      Comment comment_obj = new Comment(commentAuthorId,text,suggestion,
-      suggestionKeywords,sentimantAnalysisScore,timestamp);
-      
-      comments.add(comment_obj);
+        Comment comment_obj = new Comment(commentAuthorId,text,suggestion,
+            suggestionKeywords,timestamp,sentimantAnalysisScore);
+        
+        comments.add(comment_obj);
+    }
+    return comments;
 }
 
-private double getSentimentScore(String text){
+private PreparedQuery getQueryResults(final long ProjectID){
+      //build and prepare query results
+        Filter projectIDFilter =
+             new FilterPredicate("ProjectID", FilterOperator.EQUAL, ProjectID);
+        Query query = new Query("Comment").setFilter(projectIDFilter);
+   
+
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        PreparedQuery results = datastore.prepare(query);
+        return results;  
+  }
+
+
+
+private double getSentimentScore(String text) throws IOException{
     Document doc =
         Document.newBuilder().setContent(text).setType(Document.Type.PLAIN_TEXT).build();
     LanguageServiceClient languageService = LanguageServiceClient.create();

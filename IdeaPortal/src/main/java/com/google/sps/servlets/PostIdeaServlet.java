@@ -127,7 +127,7 @@ public class PostIdeaServlet extends HttpServlet {
     return user;
   }
 
-  /*Converts a list of Comment instance into a JSON string using the Gson library.*/
+  /*Converts a list of product ideas instance into a JSON string using the Gson library.*/
   private String convertToJson(List< ProductIdea > productIdeas) {
     Gson gson = new Gson();
     String json = gson.toJson(productIdeas);

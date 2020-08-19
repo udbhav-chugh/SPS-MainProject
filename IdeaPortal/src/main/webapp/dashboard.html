@@ -20,7 +20,7 @@
 
   </head>
 
-  <body id="page-top" onload="fetchBlobstoreUrlAndShowForm(); fetchBlobstoreUrlAndShowIdeaForm();">
+  <body id="page-top" onload="addIdeasToDashboard(); fetchBlobstoreUrlAndShowForm(); fetchBlobstoreUrlAndShowIdeaForm();">
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -155,66 +155,9 @@
             </div>
             <br>
             <div class="card-deck mt-3" style="margin-left: 0rem;"></div>
-                <div style="display:inline-block;">
-                    <div class="card bg-light mb-3 text-center" style="width: 22rem; margin-right: 0.7em;">
-                        <div class="card-body">
-                            <h4 style="color: grey; font-size: large;" class="card-title"><label for="abc">Product 1</label></h4>
-                            <b style="color: grey;" class="card-text">Locations:</b>
-                            <br/>
-                            <br/>
-                                <a href="/dashboard.html" class="btn btn-dark">Update Statistics</a>
-
-                                <!-- <a href="{% url 'main:update_statistics' disaster.id %}" class="btn btn-dark">Update Statistics</a> -->
-                            <br>
-                            <hr>
-                        </div>
-                    </div>
-                </div>
-                <div style="display:inline-block;">
-                    <div class="card bg-light mb-3 text-center" style="width: 22rem; margin-right: 0.7em;">
-                        <div class="card-body">
-                            <h4 style="color: grey; font-size: large;" class="card-title"><label for="abc">Product 1</label></h4>
-                            <b style="color: grey;" class="card-text">Locations:</b>
-                            <br/>
-                            <br/>
-                                <a href="/dashboard.html" class="btn btn-dark">Update Statistics</a>
-
-                                <!-- <a href="{% url 'main:update_statistics' disaster.id %}" class="btn btn-dark">Update Statistics</a> -->
-                            <br>
-                            <hr>
-                        </div>
-                    </div>
-                </div>
-                <div style="display:inline-block;">
-                    <div class="card bg-light mb-3 text-center" style="width: 22rem; margin-right: 0.7em;">
-                        <div class="card-body">
-                            <h4 style="color: grey; font-size: large;" class="card-title"><label for="abc">Product 1</label></h4>
-                            <b style="color: grey;" class="card-text">Locations:</b>
-                            <br/>
-                            <br/>
-                                <a href="/dashboard.html" class="btn btn-dark">Update Statistics</a>
-
-                                <!-- <a href="{% url 'main:update_statistics' disaster.id %}" class="btn btn-dark">Update Statistics</a> -->
-                            <br>
-                            <hr>
-                        </div>
-                    </div>
-                </div>
-                <div style="display:inline-block;">
-                    <div class="card bg-light mb-3 text-center" style="width: 22rem; margin-right: 0.7em;">
-                        <div class="card-body">
-                            <h4 style="color: grey; font-size: large;" class="card-title"><label for="abc">Product 1</label></h4>
-                            <b style="color: grey;" class="card-text">Locations:</b>
-                            <br/>
-                            <br/>
-                                <a href="/dashboard.html" class="btn btn-dark">Update Statistics</a>
-
-                                <!-- <a href="{% url 'main:update_statistics' disaster.id %}" class="btn btn-dark">Update Statistics</a> -->
-                            <br>
-                            <hr>
-                        </div>
-                    </div>
-                </div>
+            <div id="ideas-container">
+                <!-- Javascript appends ideas here -->
+            </div>
         </div>
     </div>
 

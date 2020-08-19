@@ -27,7 +27,7 @@ public class SentimentScoreServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response, final long ProjectID) throws IOException {
 
-    List<Comment> comments= getListofCommentObject(final long ProjectID) //PreparedQuery results);
+    List<Comment> comments= getListofCommentObject(final long ProjectID) ;
 
     
     /**
@@ -35,7 +35,7 @@ public class SentimentScoreServlet extends HttpServlet {
     with the sentiment score.
     **/
       
-    }
+    
 
     Gson gson = new Gson();
 

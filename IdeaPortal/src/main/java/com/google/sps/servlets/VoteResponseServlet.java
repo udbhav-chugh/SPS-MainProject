@@ -1,5 +1,7 @@
 package com.google.sps.servlets;
 
+
+
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -16,6 +18,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.appengine.api.datastore.Query.Filter;
+import com.google.appengine.api.datastore.Query.FilterOperator;
+import com.google.appengine.api.datastore.Query.FilterPredicate;
 
 class ProjectVote{
     private final long ProjectID;
@@ -45,13 +50,15 @@ class ProjectVote{
 
 /** Servlet responsible for listing tasks. */
 @WebServlet("/vote-response")
-public class SentimentScoreServlet extends HttpServlet {
+public class VoteResponseServlet extends HttpServlet {
 
   @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response, final long ProjectID) throws IOException {
+  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
+    long ProjectID= Long.parseLong(request.getParameter("productid"));
     ProjectVote obj= getProjectVoteObject(ProjectID) ;
 
+    
     Gson gson = new Gson();
 
     response.setContentType("application/json;");
@@ -82,9 +89,10 @@ public class SentimentScoreServlet extends HttpServlet {
 
   PreparedQuery getQueryResults(final long ProjectID){
       //build and prepare query results
-
-      Query<Entity> query = Query.newEntityQueryBuilder().setKind("Vote").setFilter(PropertyFilter.eq("ProjectID", ProjectID))
-        .build();
+        Filter projectIDFilter =
+             new FilterPredicate("ProjectID", FilterOperator.EQUAL, ProjectID);
+        Query query = new Query("Vote").setFilter(projectIDFilter);
+   
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);

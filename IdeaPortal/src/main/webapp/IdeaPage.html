@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Idea Analysis Portal</title>
+
+    <!-- fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Bootstrap and CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+
+  </head>
+
+  <body onload="getComments()">
+
+    <section class="idea-description" class="idea-description">
+        <div class="container">
+            <div class="section heading">
+                <h1 class="idea-title" id="idea-title"></h1>
+            </div>
+            <div class="author" id="author"></div>
+            <div class="idea-description" id="idea-description"></div>
+            <div class="image" id="image"></div>
+            <div class="video" id="video"></div>
+            <div class="idea-categories" id="idea-categories"></div>
+        </div>
+    </section>
+     
+    <section class="comment" id="comment">
+        <div class="container">
+            <div class="section-heading"> 
+                <h1>Review Section</h1>
+            </div>
+            <button onclick="document.location='commentPage.html'">Add comment</button>
+            </div>
+            <div class="comment-container" id="comment-container"></div>
+        </div>
+    </section>
+
+
+
+    <!-- Bootstrap JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+    <script src="script.js"></script>
+
+  </body>
+</html>

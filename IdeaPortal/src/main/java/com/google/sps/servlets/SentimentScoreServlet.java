@@ -29,6 +29,12 @@ import com.google.cloud.language.v1.Sentiment;
 @WebServlet("/sentiment-score")
 public class SentimentScoreServlet extends HttpServlet {
 
+    private static DatastoreService datastore;
+
+    public void init(){
+    datastore = DatastoreServiceFactory.getDatastoreService();
+    }
+
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
@@ -41,19 +47,18 @@ public class SentimentScoreServlet extends HttpServlet {
     response.getWriter().println(gson.toJson(comments));
   }
 
-
-
 private List<Comment> getListofCommentObject(final long ProjectID){
     
-   
+  
     PreparedQuery results= getQueryResults(ProjectID);
 
     List<Comment> comments = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
         long id = entity.getKey().getId();
         
+       
+        long commentAuthorId= (long) entity.getProperty("commentAuthorId");
         
-        String commentAuthorId= (String) entity.getProperty("commentAuthorId");
         String suggestion = (String) entity.getProperty("suggestion");
        
         String str[] =   ((String)entity.getProperty("suggestionKeywords")).split(" ");
@@ -71,22 +76,27 @@ private List<Comment> getListofCommentObject(final long ProjectID){
         //sentimantAnalysisScore= (sentimantAnalysisScore==0?getSentimentScore(text):sentimantAnalysisScore);
 
 
-        Comment comment_obj = new Comment(commentAuthorId,text,suggestion,
+        Comment comment_obj = new Comment(ProjectID,commentAuthorId,text,suggestion,
             suggestionKeywords,timestamp,sentimantAnalysisScore);
         
+
         comments.add(comment_obj);
+
     }
     return comments;
 }
 
 private PreparedQuery getQueryResults(final long ProjectID){
+
+
       //build and prepare query results
         Filter projectIDFilter =
              new FilterPredicate("ProjectID", FilterOperator.EQUAL, ProjectID);
         Query query = new Query("Comment").setFilter(projectIDFilter);
    
 
-        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        //DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+       
         PreparedQuery results = datastore.prepare(query);
         return results;  
   }

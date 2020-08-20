@@ -12,7 +12,7 @@ public final class Comment{
     private final long timestamp;
     private double sentimentAnalysisScore;
 
-    public Comment(long ProjectID, String commentAuthorId, String text, String suggestion, List<String> suggestionKeywords, long timestamp, double sentimentAnalysisScore){
+    public Comment(long ProjectID, long commentAuthorId, String text, String suggestion, List<String> suggestionKeywords, long timestamp, double sentimentAnalysisScore){
         this.ProjectID = ProjectID;
         this.commentAuthorId = commentAuthorId;
         this.text = text;

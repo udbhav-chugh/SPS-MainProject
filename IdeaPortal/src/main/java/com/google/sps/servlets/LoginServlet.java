@@ -76,4 +76,12 @@ public class LoginServlet extends HttpServlet {
     }
   }
 
+  public static Entity getUser(){
+    Filter propertyFilter = new FilterPredicate("email", FilterOperator.EQUAL, email);
+    Query query = new Query("User").setFilter(propertyFilter);
+    List<Entity> results = datastore.prepare(query).asList(FetchOptions.Builder.withDefaults());
+    Entity user = results.get(0);
+    return user;
+  }
+
 }

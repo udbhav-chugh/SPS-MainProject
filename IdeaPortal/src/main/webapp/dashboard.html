@@ -20,7 +20,7 @@
 
   </head>
 
-  <body id="page-top" onload="fetchBlobstoreUrlAndShowForm(); fetchBlobstoreUrlAndShowIdeaForm();">
+  <body id="page-top" onload="addIdeasToDashboard(); addPersonalInfoToDashboard(); fetchBlobstoreUrlAndShowForm(); fetchBlobstoreUrlAndShowIdeaForm();">
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -32,22 +32,12 @@
                 <a class="nav-link" href="/feed.html">Feed</a>
             </li>
             </ul>
+
+            <form id="logoutform" method="GET" action="/logout">
+            </form>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" form="logoutform" value="Submit">Logout</button>
         </div>
-    </nav>  
-    <header class="masthead">
-        <div class="container">
-          <div class="masthead-heading text-uppercase">Welcome to Dashboard</div>
-          <form id="logoutform" method="GET" action="/logout">
-          </form>
-          <button class="btn btn-default" type="submit" form="logoutform" value="Submit">Logout</button>
-          <div class="text-center">
-            <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#updateInfoForm">Update Information</a>
-          </div>
-          <div class="text-center">
-            <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#postIdeaForm">Post An Idea</a>
-          </div>
-        </div>
-    </header>
+    </nav>
     <div class="modal fade" id="updateInfoForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -136,6 +126,52 @@
             </div>
         </div>
     </div>
+    <div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <br>
+            <div class="text-center">
+                <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#updateInfoForm">Update Information</a>
+            </div>
+            <br>
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">Personal Details</h2>
+            </div>
+            <br>
+            <div class="text-center">
+            <div id="info-container">
+                <!-- Javascript appends personal info here -->
+            </div>
+            </div>
+            <!-- <div class="row">
+                <div class="col-md-6">
+                    <label>User Id</label>
+                </div>
+                <div class="col-md-6">
+                    <p>Kshiti123</p>
+                </div>
+            </div> -->
+            
+        </div>
+        <div class="col-md-8">
+            <br>
+            <div class="text-center">
+                <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#postIdeaForm">Post An Idea</a>
+            </div>
+            <br>
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">Previous Ideas Submitted</h2>
+            </div>
+            <br>
+            <div class="card-deck mt-3" style="margin-left: 0rem;"></div>
+            <div id="ideas-container">
+                <!-- Javascript appends ideas here -->
+            </div>
+        </div>
+    </div>
+    </div>
+
+
 
     <!-- Bootstrap JS-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

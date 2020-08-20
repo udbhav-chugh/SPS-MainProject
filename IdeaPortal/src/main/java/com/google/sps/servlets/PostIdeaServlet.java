@@ -101,6 +101,14 @@ public class PostIdeaServlet extends HttpServlet {
     Query query = new Query("ProductIdea").setFilter(propertyFilter).addSort("timestamp", SortDirection.DESCENDING);
 
     PreparedQuery results = datastore.prepare(query);
+    List<ProductIdea> productIdeas = getProductIdeasList(results);
+    String json = convertToJson(productIdeas);
+    response.setContentType("application/json;");
+    response.getWriter().println(json);
+  }
+
+  private List<ProductIdea> getProductIdeasList(PreparedQuery results){
+
     List<ProductIdea> productIdeas = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
 
@@ -111,12 +119,11 @@ public class PostIdeaServlet extends HttpServlet {
       String category = (String) entity.getProperty("category");
       String imageUrl = (String) entity.getProperty("imageUrl");
       String description = (String) entity.getProperty("description");
+      
       ProductIdea finalProductIdea = new ProductIdea(productID, title, authorID, timestamp, category, imageUrl, description);
       productIdeas.add(finalProductIdea);
     }
-    String json = convertToJson(productIdeas);
-    response.setContentType("application/json;");
-    response.getWriter().println(json);
+    return productIdeas;
   }
 
   /*Converts a list of product ideas instance into a JSON string using the Gson library.*/

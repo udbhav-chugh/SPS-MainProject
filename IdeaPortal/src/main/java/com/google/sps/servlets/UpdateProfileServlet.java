@@ -94,6 +94,15 @@ public class UpdateProfileServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    
+    User user = getUserObject();
+    String json = convertToJson(user);
+    response.setContentType("application/json;");
+    response.getWriter().println(json);
+  }
+
+  private User getUserObject(){
+
     Entity entity = LoginServlet.getUser();
 
     String email = (String) entity.getProperty("email");
@@ -101,10 +110,9 @@ public class UpdateProfileServlet extends HttpServlet {
     Date dob = (Date) entity.getProperty("dob");
     String teamName = (String) entity.getProperty("teamname");
     String imageUrl = (String) entity.getProperty("imageUrl");
+
     User user = new User(email, name, dob, teamName, imageUrl);
-    String json = convertToJson(user);
-    response.setContentType("application/json;");
-    response.getWriter().println(json);
+    return user;
   }
 
   /*Converts a user instance into a JSON string using the Gson library.*/

@@ -98,7 +98,7 @@ public class PostIdeaServlet extends HttpServlet {
     long userID = user.getKey().getId();
 
     Filter propertyFilter = new FilterPredicate("authorid", FilterOperator.EQUAL, userID);
-    Query query = new Query("ProductIdea").setFilter(propertyFilter).addSort("timestamp", SortDirection.DESCENDING);
+    Query query = new Query("ProductIdea").setFilter(propertyFilter);
 
     PreparedQuery results = datastore.prepare(query);
     List<ProductIdea> productIdeas = getProductIdeasList(results);

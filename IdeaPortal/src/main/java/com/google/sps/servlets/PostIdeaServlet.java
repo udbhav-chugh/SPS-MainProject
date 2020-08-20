@@ -69,7 +69,7 @@ public class PostIdeaServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-    Entity user = getUser();
+    Entity user = LoginServlet.getUser();
     long userID = user.getKey().getId();
     // Get the input from the form.
     String title = request.getParameter("title");
@@ -94,7 +94,7 @@ public class PostIdeaServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Entity user = getUser();
+    Entity user = LoginServlet.getUser();
     long userID = user.getKey().getId();
 
     Filter propertyFilter = new FilterPredicate("authorid", FilterOperator.EQUAL, userID);
@@ -117,14 +117,6 @@ public class PostIdeaServlet extends HttpServlet {
     String json = convertToJson(productIdeas);
     response.setContentType("application/json;");
     response.getWriter().println(json);
-  }
-
-  private Entity getUser(){
-    Filter propertyFilter = new FilterPredicate("email", FilterOperator.EQUAL, LoginServlet.email);
-    Query query = new Query("User").setFilter(propertyFilter);
-    List<Entity> results = datastore.prepare(query).asList(FetchOptions.Builder.withDefaults());
-    Entity user = results.get(0);
-    return user;
   }
 
   /*Converts a list of product ideas instance into a JSON string using the Gson library.*/

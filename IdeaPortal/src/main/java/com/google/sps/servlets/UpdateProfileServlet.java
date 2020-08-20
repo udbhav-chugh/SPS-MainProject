@@ -69,7 +69,7 @@ public class UpdateProfileServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-    Entity taskEntity = getUser();
+    Entity taskEntity = LoginServlet.getUser();
     // Get the input from the form.
     String name = request.getParameter("name");
     Date dob = new Date();
@@ -94,7 +94,7 @@ public class UpdateProfileServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Entity entity = getUser();
+    Entity entity = LoginServlet.getUser();
 
     String email = (String) entity.getProperty("email");
     String name = (String) entity.getProperty("name");
@@ -105,14 +105,6 @@ public class UpdateProfileServlet extends HttpServlet {
     String json = convertToJson(user);
     response.setContentType("application/json;");
     response.getWriter().println(json);
-  }
-
-  private Entity getUser(){
-    Filter propertyFilter = new FilterPredicate("email", FilterOperator.EQUAL, LoginServlet.email);
-    Query query = new Query("User").setFilter(propertyFilter);
-    List<Entity> results = datastore.prepare(query).asList(FetchOptions.Builder.withDefaults());
-    Entity user = results.get(0);
-    return user;
   }
 
   /*Converts a user instance into a JSON string using the Gson library.*/

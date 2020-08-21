@@ -111,11 +111,15 @@ function getCardDescription(idea){
 }
 
 function getStatsLink(idea){
-    var statsLink = document.createElement("a");
+    var statsLink = document.createElement("button");
     statsLink.className = "btn btn-dark";
     var link = document.createTextNode("Analyse Statistics");
     statsLink.appendChild(link);
-    statsLink.href = "/statistics.html?productID="+idea.productID;
+    // statsLink.href = "/charts.html";
+    statsLink.onclick = function () {
+        localStorage.setItem("productid",idea.productID);
+        location.href = "/charts.html";
+    };
     return statsLink;
 }
 

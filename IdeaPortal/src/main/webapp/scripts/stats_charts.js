@@ -22,11 +22,7 @@ function drawChart() {
   .then((obj) => {
       console.log(obj);
     var data = new google.visualization.DataTable();
-    console.log("work");
-
-    console.log(obj.ProjectID);
-    console.log(obj.upvotes);
-
+   
     data.addColumn('string', 'ProjectID');
     data.addColumn('number', 'Votes');
     Object.keys(obj).forEach((color) => {
@@ -60,48 +56,3 @@ function drawChart() {
     }
 })();
 
-console.log("fuck you");
-/** Fetches color data and uses it to create a chart. */
-/** function drawChart11() {
-  fetch('/vote-response').then(response => response.json())
-  .then((obj) => {
-    const data = new google.visualization.DataTable(obj);
-    //data.addColumn('string', 'Color');
-    //data.addColumn('number', 'Votes');
-    //Object.keys(obj).forEach((color) => {
-      //data.addRow([color, colorVotes[color]]);
-    });
-
-    const options = {
-      'title': 'Favorite Colors',
-      'width':600,
-      'height':500
-    };
-
-    const chart = new google.visualization.ColumnChart(
-        document.getElementById('chart-container'));
-    chart.draw(data, options);
-  }
-
-
-function drawChart() {
-  const data = new google.visualization.DataTable();
-  data.addColumn('string', 'Animal');
-  data.addColumn('number', 'Count');
-        data.addRows([
-          ['Lions', 10],
-          ['Tigers', 5],
-          ['Bears', 15]
-        ]);
-
-  const options = {
-    'title': 'Zoo Animals',
-    'width':500,
-    'height':400
-  };
-
-  const chart = new google.visualization.PieChart(
-      document.getElementById('chart-container'));
-  chart.draw(data, options);
-}
-*/

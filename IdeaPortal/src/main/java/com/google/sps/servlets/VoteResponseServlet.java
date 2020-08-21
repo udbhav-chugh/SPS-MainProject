@@ -23,12 +23,12 @@ import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
 
 class ProjectVote{
-    private final long ProjectID;
+    private final long productID;
     private long upvotes;
     private long downvotes;
 
-    ProjectVote(final long ProjectID){
-        this.ProjectID= ProjectID;
+    ProjectVote(final long productID){
+        this.productID= productID;
         this.upvotes=0;
         this.downvotes=0;
     }
@@ -55,8 +55,8 @@ public class VoteResponseServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-    long ProjectID= Long.parseLong(request.getParameter("productid"));
-    ProjectVote obj= getProjectVoteObject(ProjectID) ;
+    long productID= Long.parseLong(request.getParameter("productid"));
+    ProjectVote obj= getProjectVoteObject(productID) ;
 
     
     Gson gson = new Gson();
@@ -66,11 +66,11 @@ public class VoteResponseServlet extends HttpServlet {
   }
 
 
-  ProjectVote getProjectVoteObject(final long ProjectID){
+  ProjectVote getProjectVoteObject(final long productID){
       //iterate over results and create ProjectVote object
-      ProjectVote voteObj= new ProjectVote(ProjectID);
+      ProjectVote voteObj= new ProjectVote(productID);
 
-      PreparedQuery results= getQueryResults(ProjectID);
+      PreparedQuery results= getQueryResults(productID);
 
       for (Entity entity : results.asIterable()) {
         long id = entity.getKey().getId();
@@ -87,10 +87,10 @@ public class VoteResponseServlet extends HttpServlet {
 
   }
 
-  PreparedQuery getQueryResults(final long ProjectID){
+  PreparedQuery getQueryResults(final long productID){
       //build and prepare query results
         Filter projectIDFilter =
-             new FilterPredicate("ProjectID", FilterOperator.EQUAL, ProjectID);
+             new FilterPredicate("productID", FilterOperator.EQUAL, productID);
         Query query = new Query("Vote").setFilter(projectIDFilter);
    
 

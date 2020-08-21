@@ -23,7 +23,7 @@ public class BlobstoreIdeaUploadUrlServlet extends HttpServlet {
   }
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String uploadUrl = blobstoreService.createUploadUrl("/product-idea-post");
+    String uploadUrl = blobstoreService.createUploadUrl("/product-idea");
 
     response.setContentType("text/html");
     response.getWriter().println(uploadUrl);

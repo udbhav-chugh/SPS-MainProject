@@ -4,21 +4,20 @@ import java.util.ArrayList;
 import java.util.Arrays; 
 
 public final class ProductIdea{
-    public enum category {
+
+    enum categories {
         Sustainbility,
         Privacy,
         Agriculture,
         Tourism,
         Other,  
     }
-
-    private final long ProductID;
+    private final long productID;
     private final String title;
     private final long authorID;
     private final long timestamp;
-    private final category categories;
+    private final String category;
     private final String imageUrl;
-    private final String videoUrl;
     private final String description;
 
     //To be calculated during loading of stats page
@@ -28,14 +27,13 @@ public final class ProductIdea{
     // private int downvotes;
 
 
-    public ProductIdea(long ProductID, String title, long authorID, long timestamp, category categories, String imageUrl, String videoUrl, String description){
-        this.ProductID = ProductID;
+    public ProductIdea(long productID, String title, long authorID, long timestamp, String category, String imageUrl, String description){
+        this.productID = productID;
         this.title = title;
         this.authorID = authorID;
         this.timestamp = timestamp;
-        this.categories = categories;
+        this.category = category;
         this.imageUrl = imageUrl;
-        this.videoUrl = videoUrl;
         this.description = description;
     }
 

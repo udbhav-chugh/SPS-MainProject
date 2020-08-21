@@ -23,16 +23,9 @@ function fetchIdea() {
     img.src = idea.imageURL;
     ideaImageElement.appendChild(img);
 
-    const ideaVideoElement = document.getElementById('video');
-    var video = document.createElement('video');
-    video.src = idea.videoURL;
-    ideaVideoElement.appendChild(video);
-
     const ideaCategoriesElement = document.getElementById('idea-categories');
     ideaCategoriesElement.innerHTML = '';
-    for (const category of idea.categories) { 		      
-         ideaCategoriesElement.appendChild(createListElement(category));  		
-    }
+    ideaCategoriesElement.appendChild(createListElement(idea.category));  		
 
     
   });

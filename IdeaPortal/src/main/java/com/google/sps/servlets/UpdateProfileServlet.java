@@ -81,8 +81,7 @@ public class UpdateProfileServlet extends HttpServlet {
     }
     String teamname = request.getParameter("teamname");
     String imageUrl = getUploadedFileUrl(request, "image");
-    System.out.println(imageUrl.substring(0,3));
-    if((imageUrl.substring(0,4)).equals("http")){
+    if(imageUrl!=null && (imageUrl.substring(0,4)).equals("http")){
         imageUrl = "https"+imageUrl.substring(4);
     }
     taskEntity.setProperty("name", name);

@@ -47,12 +47,11 @@ public class ideaPageServlet extends HttpServlet {
       long authorId = (long) entity.getProperty("authorId");
       String title = (String) entity.getProperty("title");
       long timestamp = (long) entity.getProperty("timestamp");
-      ProductIdea.category categories = (ProductIdea.category) entity.getProperty("categories");
+      String category = (String) entity.getProperty("category");
       String imageUrl = (String) entity.getProperty("imageUrl");
-      String videoUrl = (String) entity.getProperty("videoUrl");
       String description = (String) entity.getProperty("description");
       
-      ProductIdea productidea = new ProductIdea(ProductID, title, authorId, timestamp, categories, imageUrl, videoUrl, description);
+      ProductIdea productidea = new ProductIdea(ProductID, title, authorId, timestamp, category, imageUrl, description);
       productIdeas.add(productidea);
     }
     

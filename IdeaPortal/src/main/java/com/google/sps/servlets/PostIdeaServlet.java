@@ -77,6 +77,9 @@ public class PostIdeaServlet extends HttpServlet {
     String category = request.getParameter("category");
     long timestamp = System.currentTimeMillis();
     String imageUrl = getUploadedFileUrl(request, "image");
+    if((imageUrl.substring(0,4)).equals("http")){
+        imageUrl = "https"+imageUrl.substring(4);
+    }
     // System.out.println(request.getParameter("category").getClass().getName());
 
     Entity taskEntity = new Entity("ProductIdea");
@@ -98,7 +101,7 @@ public class PostIdeaServlet extends HttpServlet {
     long userID = user.getKey().getId();
 
     Filter propertyFilter = new FilterPredicate("authorid", FilterOperator.EQUAL, userID);
-    Query query = new Query("ProductIdea").setFilter(propertyFilter).addSort("timestamp", SortDirection.DESCENDING);
+    Query query = new Query("ProductIdea").setFilter(propertyFilter);
 
     PreparedQuery results = datastore.prepare(query);
     List<ProductIdea> productIdeas = getProductIdeasList(results);

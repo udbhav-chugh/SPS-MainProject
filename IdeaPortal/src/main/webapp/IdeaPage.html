@@ -11,48 +11,63 @@
     <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
     <!-- Bootstrap and CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.css" />
+
+    <link rel="stylesheet" href="css/idea.css">
 
     <!-- Material Design Bootstrap -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
 
   </head>
 
-  <body onload="getComments()">
-
-    <section class="idea-description" class="idea-description">
-        <div class="container">
-            <div class="section heading">
-                <h1 class="idea-title" id="idea-title"></h1>
+  <body onload="fetchIdea()">
+    <div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <br>
+            <!-- <div class="text-center">
+                <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#updateInfoForm">Update Information</a>
+            </div> -->
+            <!-- <br> -->
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">Idea Details</h2>
             </div>
-            <div class="author" id="author"></div>
-            <div class="idea-description" id="idea-description"></div>
-            <div class="image" id="image"></div>
-            <div class="idea-categories" id="idea-categories"></div>
+            <br>
+            <div class="text-center">
+            <div id="ideainfo-container">
+                <!-- Javascript appends personal info here -->
+            </div>
+            </div>
+            
         </div>
-    </section>
-     
-    <section class="comment" id="comment">
-        <div class="container">
-            <div class="section-heading"> 
-                <h1>Review Section</h1>
+        <div class="col-md-8">
+            <br>
+            <!-- <div class="text-center">
+                <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#postIdeaForm">Post An Idea</a>
             </div>
-            <button onclick="document.location='commentPage.html'">Add comment</button>
+            <br> -->
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">Comments</h2>
             </div>
-            <div class="comment-container" id="comment-container"></div>
+            <br>
+            <div class="card-deck mt-3" style="margin-left: 0rem;"></div>
+            <div id="comment-container">
+                <!-- Javascript appends ideas here -->
+            </div>
         </div>
-    </section>
-
+    </div>
+    </div>
 
 
     <!-- Bootstrap JS-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"></script>
 
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
-    <script src="script.js"></script>
+    <script src="scripts/idea.js"></script>
 
   </body>
 </html>

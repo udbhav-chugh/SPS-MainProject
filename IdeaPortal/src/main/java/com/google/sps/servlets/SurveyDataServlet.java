@@ -22,12 +22,12 @@ import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
 
-class ProjectAgeCount{
-    private final long ProjectID;
+private static class ProjectAgeCount{
+    private final long productID;
     private ArrayList<Integer> ageGroupCount;
     
-    ProjectAgeCount(final long ProjectID){
-        this.ProjectID= ProjectID;
+    ProjectAgeCount(final long productID){
+        this.productID= productID;
         this.ageGroupCount = new ArrayList<Integer>();
         ageGroupCount = new ArrayList<Integer>();
         for(int i=0;i<4;i++)
@@ -52,8 +52,8 @@ public class SurveyDataServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-    long ProjectID= Long.parseLong(request.getParameter("productid"));
-    ProjectAgeCount obj= getProjectAgeCountObject(ProjectID) ;
+    long productID= Long.parseLong(request.getParameter("productid"));
+    ProjectAgeCount obj= getProjectAgeCountObject(productID) ;
 
     
     Gson gson = new Gson();
@@ -63,11 +63,11 @@ public class SurveyDataServlet extends HttpServlet {
   }
 
 
-  ProjectAgeCount getProjectAgeCountObject(final long ProjectID){
+  ProjectAgeCount getProjectAgeCountObject(final long productID){
       //iterate over results and create ProjectVote object
-      ProjectAgeCount ageCountObj= new ProjectAgeCount(ProjectID);
+      ProjectAgeCount ageCountObj= new ProjectAgeCount(productID);
 
-      PreparedQuery results= getQueryResults(ProjectID);
+      PreparedQuery results= getQueryResults(productID);
 
       for (Entity entity : results.asIterable()) {
         long id = entity.getKey().getId();
@@ -81,10 +81,10 @@ public class SurveyDataServlet extends HttpServlet {
 
   }
 
-  PreparedQuery getQueryResults(final long ProjectID){
+  PreparedQuery getQueryResults(final long productID){
       //build and prepare query results
         Filter projectIDFilter =
-             new FilterPredicate("ProjectID", FilterOperator.EQUAL, ProjectID);
+             new FilterPredicate("productID", FilterOperator.EQUAL, productID);
         Query query = new Query("Survey").setFilter(projectIDFilter);
    
 

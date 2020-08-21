@@ -51,13 +51,17 @@ class ProjectVote{
 /** Servlet responsible for listing tasks. */
 @WebServlet("/vote-response")
 public class VoteResponseServlet extends HttpServlet {
+    private static DatastoreService datastore;
+
+    public void init(){
+    datastore = DatastoreServiceFactory.getDatastoreService();
+    }
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
     long ProjectID= Long.parseLong(request.getParameter("productid"));
     ProjectVote obj= getProjectVoteObject(ProjectID) ;
-
     
     Gson gson = new Gson();
 
@@ -65,9 +69,48 @@ public class VoteResponseServlet extends HttpServlet {
     response.getWriter().println(gson.toJson(obj));
   }
 
+  private void temp_func(final long ProjectID){
+      Entity employee = new Entity("Vote");
+        employee.setProperty("ProjectID", ProjectID);
+        employee.setProperty("userId", 5555);
+        employee.setProperty("voteValue", 1);
+        
+        datastore.put(employee);
 
+        Entity emp = new Entity("Vote");
+        emp.setProperty("ProjectID", ProjectID);
+        emp.setProperty("userId", 5255);
+        emp.setProperty("voteValue", 1);
+        
+        datastore.put(emp);
+
+        
+        Entity emp1 = new Entity("Vote");
+        emp1.setProperty("ProjectID", ProjectID);
+        emp1.setProperty("userId", 5255);
+        emp1.setProperty("voteValue", 1);
+        
+        datastore.put(emp1);
+
+        Entity emp2 = new Entity("Vote");
+        emp2.setProperty("ProjectID", ProjectID);
+        emp2.setProperty("userId", 5255);
+        emp2.setProperty("voteValue", 1);
+        
+        datastore.put(emp2);
+
+        Entity emp3 = new Entity("Vote");
+        emp3.setProperty("ProjectID", ProjectID);
+        emp3.setProperty("userId", 5255);
+        emp3.setProperty("voteValue", -1);
+        
+        datastore.put(emp3);
+
+        
+}
   ProjectVote getProjectVoteObject(final long ProjectID){
       //iterate over results and create ProjectVote object
+      temp_func(ProjectID);
       ProjectVote voteObj= new ProjectVote(ProjectID);
 
       PreparedQuery results= getQueryResults(ProjectID);
@@ -75,15 +118,17 @@ public class VoteResponseServlet extends HttpServlet {
       for (Entity entity : results.asIterable()) {
         long id = entity.getKey().getId();
         
-        int voteValue= (int) entity.getProperty("voteValue");
+        long voteValue= (long) entity.getProperty("voteValue");
+       
         if(voteValue==1)
             voteObj.incrementUpvote();
+       
         if(voteValue==-1)
             voteObj.incrementDownvote();
-        }
+
+         }
 
       return voteObj;
-
 
   }
 

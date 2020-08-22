@@ -106,6 +106,7 @@ function getCommentDiv(comment){
 
 function addComments() {
   productid = localStorage.getItem("productid");
+  console.log(productid);
   fetch('/ideaComments?productid=' + productid).then(response => response.json()).then((comments) => {
 
     var commentsContainer = document.getElementById('comments-container');

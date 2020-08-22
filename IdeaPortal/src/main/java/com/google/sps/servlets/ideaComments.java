@@ -35,6 +35,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ideaComments extends HttpServlet { 
 
   private static DatastoreService datastore;
+  long productID;
   @Override
   public void init(){
     datastore = DatastoreServiceFactory.getDatastoreService();
@@ -46,7 +47,6 @@ public class ideaComments extends HttpServlet {
 
     Entity user = LoginServlet.getUser();
 
-    long productID= Long.parseLong(request.getParameter("productid"));
     long commentAuthorId = user.getKey().getId();
 
     Filter productFilter = new FilterPredicate("productID", FilterOperator.EQUAL, productID);
@@ -67,6 +67,8 @@ public class ideaComments extends HttpServlet {
     long timestamp = System.currentTimeMillis();
     double sentimentAnalysisScore = 9.5;
 
+    taskEntity.setProperty("productID",productID);
+    taskEntity.setProperty("commentAuthorId",commentAuthorId);
     taskEntity.setProperty("text",text);
     taskEntity.setProperty("suggestion", suggestion);
     taskEntity.setProperty("suggestionKeywords", suggestionKeywords);
@@ -81,9 +83,9 @@ public class ideaComments extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-    long productID= Long.parseLong(request.getParameter("productid"));
+    productID= Long.parseLong(request.getParameter("productid"));
 
-    Filter ProductIDFilter = new FilterPredicate("__key__", FilterOperator.EQUAL, KeyFactory.createKey("ProductIdea",productID));
+    Filter ProductIDFilter = new FilterPredicate("productID", FilterOperator.EQUAL, productID);
     Query query = new Query("Comment").setFilter(ProductIDFilter);
     PreparedQuery results = datastore.prepare(query);
 
@@ -92,9 +94,8 @@ public class ideaComments extends HttpServlet {
         long commentAuthorId = (long) entity.getProperty("commentAuthorId");
         String text = (String) entity.getProperty("text");
         String suggestion = (String) entity.getProperty("suggestion");
-        String str[] =   ((String)entity.getProperty("suggestionKeywords")).split(" ");
         List<String> suggestionKeywords = new ArrayList<String>();
-        suggestionKeywords = Arrays.asList(str);
+        suggestionKeywords = (List<String> )entity.getProperty("suggestionKeywords");
         long timestamp = (long) entity.getProperty("timestamp");
         double sentimentAnalysisScore = (double) entity.getProperty("sentimentAnalysisScore");
         

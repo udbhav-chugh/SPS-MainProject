@@ -28,10 +28,13 @@ function getCardBody(idea){
     var cardDescription = getCardDescription(idea);
     var lineBreak = document.createElement("br");
     var ideaInfoLink = getIdeaInfoLink(idea);
+    var statsLink = getStatsLink(idea);
+
     cardBody.appendChild(cardTitle);
     cardBody.appendChild(cardDescription);
     cardBody.appendChild(lineBreak);
     cardBody.appendChild(ideaInfoLink);
+    cardBody.appendChild(statsLink);
     
     return cardBody;
 }
@@ -86,6 +89,18 @@ function getIdeaInfoLink(idea){
     statsLink.onclick = function () {
         localStorage.setItem("productid",idea.productID);
         location.href = "/IdeaPage.html";
+    };
+    return statsLink;
+}
+
+function getStatsLink(idea){
+    var statsLink = document.createElement("button");
+    statsLink.className = "btn btn-dark";
+    var link = document.createTextNode("Analyse Statistics");
+    statsLink.appendChild(link);
+    statsLink.onclick = function () {
+        localStorage.setItem("productid",idea.productID);
+        location.href = "/charts.html";
     };
     return statsLink;
 }

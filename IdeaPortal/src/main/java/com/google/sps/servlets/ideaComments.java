@@ -21,7 +21,9 @@ import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gson.Gson;
 import java.util.Arrays;
 
-
+import com.google.cloud.language.v1.Document;
+import com.google.cloud.language.v1.LanguageServiceClient;
+import com.google.cloud.language.v1.Sentiment;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +67,7 @@ public class ideaComments extends HttpServlet {
     suggestionKeywords.add("Groundbreaking");
     suggestionKeywords.add("Future");
     long timestamp = System.currentTimeMillis();
-    double sentimentAnalysisScore = 9.5;
+    double sentimentAnalysisScore = getSentimentScore(text);
 
     taskEntity.setProperty("productID",productID);
     taskEntity.setProperty("commentAuthorId",commentAuthorId);
@@ -78,6 +80,19 @@ public class ideaComments extends HttpServlet {
     datastore.put(taskEntity);
 
     response.sendRedirect("/IdeaPage.html");
+  }
+
+  private double getSentimentScore(String text) throws IOException{
+    Document doc =
+        Document.newBuilder().setContent(text).setType(Document.Type.PLAIN_TEXT).build();
+    LanguageServiceClient languageService = LanguageServiceClient.create();
+    Sentiment sentiment = languageService.analyzeSentiment(doc).getDocumentSentiment();
+    double score = sentiment.getScore(); //return score from -1 to 1
+    score *= 5;
+    score += 5; //final score from 0 to 10
+
+    languageService.close();
+    return score;
   }
 
   @Override

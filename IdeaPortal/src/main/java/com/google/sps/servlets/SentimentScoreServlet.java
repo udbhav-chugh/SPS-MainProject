@@ -101,19 +101,6 @@ private PreparedQuery getQueryResults(final long ProjectID){
         return results;  
   }
 
-
-
-private double getSentimentScore(String text) throws IOException{
-    Document doc =
-        Document.newBuilder().setContent(text).setType(Document.Type.PLAIN_TEXT).build();
-    LanguageServiceClient languageService = LanguageServiceClient.create();
-    Sentiment sentiment = languageService.analyzeSentiment(doc).getDocumentSentiment();
-    double score = sentiment.getScore();
-
-    languageService.close();
-    return score;
-}
-
   
 }
 

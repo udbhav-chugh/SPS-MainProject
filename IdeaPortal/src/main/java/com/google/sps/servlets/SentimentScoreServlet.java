@@ -55,27 +55,14 @@ private List<Comment> getListofCommentObject(final long productID){
     List<Comment> comments = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
         long id = entity.getKey().getId();
-        
-       
         long commentAuthorId= (long) entity.getProperty("commentAuthorId");
-        
         String suggestion = (String) entity.getProperty("suggestion");
-       
         long timestamp = (long) entity.getProperty("timestamp");
-        
         String text = (String) entity.getProperty("text");
-        
-        double sentimantAnalysisScore = (double) entity.getProperty("sentimantAnalysisScore");
+        double sentimentAnalysisScore = (double) entity.getProperty("sentimentAnalysisScore");
 
-        /** the sentiment analysis score will be calculated and stored when the comment is posted **/
-        
-        //sentimantAnalysisScore= (sentimantAnalysisScore==0?getSentimentScore(text):sentimantAnalysisScore);
-
-        Comment comment_obj = new Comment(ProjectID,commentAuthorId,text,suggestion,timestamp,sentimantAnalysisScore);
-        
-
+        Comment comment_obj = new Comment(productID,commentAuthorId,text,suggestion,timestamp,sentimentAnalysisScore);
         comments.add(comment_obj);
-
     }
     return comments;
 }

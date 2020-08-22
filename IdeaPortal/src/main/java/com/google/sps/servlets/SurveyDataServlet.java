@@ -22,7 +22,7 @@ import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
 
-private static class ProjectAgeCount{
+class ProjectAgeCount{
     private final long productID;
     private ArrayList<Integer> ageGroupCount;
     
@@ -77,7 +77,6 @@ public class SurveyDataServlet extends HttpServlet {
         }
 
       return ageCountObj;
-
 
   }
 

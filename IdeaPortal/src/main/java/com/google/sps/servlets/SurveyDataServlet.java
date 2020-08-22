@@ -78,7 +78,6 @@ public class SurveyDataServlet extends HttpServlet {
 
       return ageCountObj;
 
-
   }
 
   PreparedQuery getQueryResults(final long productID){

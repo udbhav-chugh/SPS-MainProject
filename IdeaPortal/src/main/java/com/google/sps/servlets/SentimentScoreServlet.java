@@ -59,9 +59,9 @@ private List<Comment> getListofCommentObject(final long productID){
         String suggestion = (String) entity.getProperty("suggestion");
         long timestamp = (long) entity.getProperty("timestamp");
         String text = (String) entity.getProperty("text");
-        double sentimantAnalysisScore = (double) entity.getProperty("sentimantAnalysisScore");
+        double sentimentAnalysisScore = (double) entity.getProperty("sentimentAnalysisScore");
 
-        Comment comment_obj = new Comment(productID,commentAuthorId,text,suggestion,timestamp,sentimantAnalysisScore);
+        Comment comment_obj = new Comment(productID,commentAuthorId,text,suggestion,timestamp,sentimentAnalysisScore);
         comments.add(comment_obj);
     }
     return comments;

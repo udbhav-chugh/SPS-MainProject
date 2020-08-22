@@ -93,9 +93,9 @@ public class VoteResponseServlet extends HttpServlet {
 
   PreparedQuery getQueryResults(final long productID){
       //build and prepare query results
-        Filter projectIDFilter =
+        Filter productIDFilter =
              new FilterPredicate("productID", FilterOperator.EQUAL, productID);
-        Query query = new Query("Vote").setFilter(projectIDFilter);
+        Query query = new Query("Vote").setFilter(productIDFilter);
    
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();

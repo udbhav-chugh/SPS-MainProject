@@ -38,8 +38,8 @@ public class SentimentScoreServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-    long ProjectID= Long.parseLong(request.getParameter("productid"));
-    List<Comment> comments= getListofCommentObject(ProjectID);
+    long productID= Long.parseLong(request.getParameter("productid"));
+    List<Comment> comments= getListofCommentObject(productID);
 
     Gson gson = new Gson();
 
@@ -47,10 +47,10 @@ public class SentimentScoreServlet extends HttpServlet {
     response.getWriter().println(gson.toJson(comments));
   }
 
-private List<Comment> getListofCommentObject(final long ProjectID){
+private List<Comment> getListofCommentObject(final long productID){
     
   
-    PreparedQuery results= getQueryResults(ProjectID);
+    PreparedQuery results= getQueryResults(productID);
 
     List<Comment> comments = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
@@ -71,7 +71,6 @@ private List<Comment> getListofCommentObject(final long ProjectID){
         
         //sentimantAnalysisScore= (sentimantAnalysisScore==0?getSentimentScore(text):sentimantAnalysisScore);
 
-
         Comment comment_obj = new Comment(ProjectID,commentAuthorId,text,suggestion,timestamp,sentimantAnalysisScore);
         
 
@@ -81,12 +80,12 @@ private List<Comment> getListofCommentObject(final long ProjectID){
     return comments;
 }
 
-private PreparedQuery getQueryResults(final long ProjectID){
+private PreparedQuery getQueryResults(final long productID){
 
 
       //build and prepare query results
         Filter projectIDFilter =
-             new FilterPredicate("ProjectID", FilterOperator.EQUAL, ProjectID);
+             new FilterPredicate("productID", FilterOperator.EQUAL, productID);
         Query query = new Query("Comment").setFilter(projectIDFilter);
    
 

@@ -30,7 +30,7 @@ function voteGraph() {
 
     const options = {
       'title': 'Vote Statistics',
-      'width':600,
+      'width':800,
       'height':500
     };
 
@@ -59,7 +59,7 @@ function sentimentGraph() {
     var data = new google.visualization.DataTable();
    
     data.addColumn('string', 'Percentage-Positiveness');
-    data.addColumn('number', 'Number of Reviewers');
+    data.addColumn('number', 'Number of Reviews');
     data.addRow(["0-20%",countArr[0]]);
     data.addRow(["20-40%",countArr[1]]);
     data.addRow(["40-60%",countArr[2]]);
@@ -79,25 +79,66 @@ function sentimentGraph() {
 
 function agegroupGraph() {
 
-//   var productid=localStorage.getItem("productid")
-//   fetch('/age-count?productid='+productid  ).then(response => response.json())
-//   .then((obj) => {
-//       console.log(obj);
-//     var data = new google.visualization.DataTable();
+  var productid=localStorage.getItem("productid")
+  fetch('/age-count?productid='+productid  ).then(response => response.json())
+  .then((obj) => {
+      console.log(obj);
+    var data = new google.visualization.DataTable();
    
-//     data.addColumn('string', 'Upvote-Downvote');
-//     data.addColumn('number', 'Votes');
-//     data.addRow(["Upvotes",obj["upvotes"]]);
-//     data.addRow(["Downvotes",obj["downvotes"]]);
+    data.addColumn('string', 'Age Group Count');
+    data.addColumn('number', 'Votes');
+    data.addRow(["0-14",obj["ageGroupCount"][0]]);
+    data.addRow(["15-24",obj["ageGroupCount"][1]]);
+    data.addRow(["25-65",obj["ageGroupCount"][2]]);
+    data.addRow([">65",obj["ageGroupCount"][3]]);
 
-//     const options = {
-//       'title': 'Vote Statistics',
-//       'width':600,
-//       'height':500
-//     };
+    const options = {
+      'title': 'Age Group Survey Statistics',
+      'width':800,
+      'height':500
+    };
 
-//     const chart = new google.visualization.ColumnChart(document.getElementById('agegroupGraph-container'));
-//     chart.draw(data, options);
-//   });
+    const chart = new google.visualization.ColumnChart(document.getElementById('agegroupGraph-container'));
+    chart.draw(data, options);
+  });
+}
+
+function getCommentPara(comment){
+    var commentPara = document.createElement("p");
+    var commentText = document.createTextNode(comment.suggestion);
+    commentPara.appendChild(commentText);
+    return commentPara;
+}
+
+function getCommentData(comment){
+    var blockQuote = document.createElement("blockquote");
+    blockQuote.className = "blockquote mb-0";
+    blockQuote.appendChild(getCommentPara(comment));
+    // blockQuote.appendChild(getCommentFooter(comment));
+    return blockQuote;
+}
+
+function getCommentDiv(comment){
+    var commentDiv = document.createElement("div");
+    commentDiv.className = "commentbackground";
+    commentDiv.appendChild(getCommentData(comment));    
+    return commentDiv;
+}
+
+function addSuggestions() {
+  productid = localStorage.getItem("productid");
+  console.log(productid);
+  fetch('/ideaComments?productid=' + productid).then(response => response.json()).then((comments) => {
+
+    var commentsContainer = document.getElementById('suggestions-container');
+    for(var i = 0; i < comments.length; i++){
+        var commentDiv = getCommentDiv(comments[i]);
+        var lineBreak = document.createElement("br");
+
+        commentsContainer.appendChild(commentDiv);
+        commentsContainer.appendChild(lineBreak);
+    }
+
+  });
 }
 

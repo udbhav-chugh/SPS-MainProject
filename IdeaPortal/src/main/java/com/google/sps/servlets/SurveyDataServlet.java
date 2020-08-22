@@ -72,7 +72,7 @@ public class SurveyDataServlet extends HttpServlet {
       for (Entity entity : results.asIterable()) {
         long id = entity.getKey().getId();
         
-        int posValue= (int) entity.getProperty("ageGroupCount");
+        Integer posValue= ((Long)entity.getProperty("ageGroupCount")).intValue();;
         ageCountObj.incrementAgeCount(posValue);
         }
 

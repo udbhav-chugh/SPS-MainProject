@@ -61,10 +61,6 @@ private List<Comment> getListofCommentObject(final long productID){
         
         String suggestion = (String) entity.getProperty("suggestion");
        
-        String str[] =   ((String)entity.getProperty("suggestionKeywords")).split(" ");
-        List<String> suggestionKeywords = new ArrayList<String>();
-	    suggestionKeywords = Arrays.asList(str);
-
         long timestamp = (long) entity.getProperty("timestamp");
         
         String text = (String) entity.getProperty("text");
@@ -75,9 +71,7 @@ private List<Comment> getListofCommentObject(final long productID){
         
         //sentimantAnalysisScore= (sentimantAnalysisScore==0?getSentimentScore(text):sentimantAnalysisScore);
 
-
-        Comment comment_obj = new Comment(productID,commentAuthorId,text,suggestion,
-            suggestionKeywords,timestamp,sentimantAnalysisScore);
+        Comment comment_obj = new Comment(ProjectID,commentAuthorId,text,suggestion,timestamp,sentimantAnalysisScore);
         
 
         comments.add(comment_obj);
@@ -100,19 +94,6 @@ private PreparedQuery getQueryResults(final long productID){
         PreparedQuery results = datastore.prepare(query);
         return results;  
   }
-
-
-
-private double getSentimentScore(String text) throws IOException{
-    Document doc =
-        Document.newBuilder().setContent(text).setType(Document.Type.PLAIN_TEXT).build();
-    LanguageServiceClient languageService = LanguageServiceClient.create();
-    Sentiment sentiment = languageService.analyzeSentiment(doc).getDocumentSentiment();
-    double score = sentiment.getScore();
-
-    languageService.close();
-    return score;
-}
 
   
 }

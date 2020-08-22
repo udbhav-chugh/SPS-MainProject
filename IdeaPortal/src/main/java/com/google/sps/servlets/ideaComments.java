@@ -63,9 +63,6 @@ public class ideaComments extends HttpServlet {
     }
     String text = request.getParameter("text");
     String suggestion = request.getParameter("suggestion");
-    List<String> suggestionKeywords = new ArrayList<String>();
-    suggestionKeywords.add("Groundbreaking");
-    suggestionKeywords.add("Future");
     long timestamp = System.currentTimeMillis();
     double sentimentAnalysisScore = getSentimentScore(text);
 
@@ -73,7 +70,6 @@ public class ideaComments extends HttpServlet {
     taskEntity.setProperty("commentAuthorId",commentAuthorId);
     taskEntity.setProperty("text",text);
     taskEntity.setProperty("suggestion", suggestion);
-    taskEntity.setProperty("suggestionKeywords", suggestionKeywords);
     taskEntity.setProperty("timestamp", timestamp);
     taskEntity.setProperty("sentimentAnalysisScore",sentimentAnalysisScore);
 
@@ -110,11 +106,10 @@ public class ideaComments extends HttpServlet {
         String text = (String) entity.getProperty("text");
         String suggestion = (String) entity.getProperty("suggestion");
         List<String> suggestionKeywords = new ArrayList<String>();
-        suggestionKeywords = (List<String> )entity.getProperty("suggestionKeywords");
         long timestamp = (long) entity.getProperty("timestamp");
         double sentimentAnalysisScore = (double) entity.getProperty("sentimentAnalysisScore");
         
-        Comment finalComment = new Comment(productID, commentAuthorId, text, suggestion, suggestionKeywords, timestamp, sentimentAnalysisScore);
+        Comment finalComment = new Comment(productID, commentAuthorId, text, suggestion, timestamp, sentimentAnalysisScore);
         comments.add(finalComment);
 
     }

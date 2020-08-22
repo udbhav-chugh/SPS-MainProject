@@ -20,7 +20,7 @@
 
   </head>
 
-  <body onload="fetchIdea()">
+  <body onload="fetchIdea(); addComments();">
     <div class="container-fluid">
     <div class="row">
         <div class="col-md-4">
@@ -51,7 +51,7 @@
             </div>
             <br>
             <div class="card-deck mt-3" style="margin-left: 0rem;"></div>
-            <div id="comment-container">
+            <div id="comments-container">
                 <!-- Javascript appends ideas here -->
             </div>
         </div>

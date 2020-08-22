@@ -18,6 +18,7 @@ public final class Comment{
         this.text = text;
         this.suggestion = suggestion;
         this.suggestionKeywords = suggestionKeywords;
+        // this.suggestionKeywords = suggestionKeywords;
         this.timestamp = timestamp;
         this.sentimentAnalysisScore = sentimentAnalysisScore;
     }

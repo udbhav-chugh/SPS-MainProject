@@ -80,3 +80,42 @@ function fetchIdea() {
     ideasContainer.appendChild(ideaDiv);
   });
 }
+
+
+function getCommentPara(comment){
+    var commentPara = document.createElement("p");
+    var commentText = document.createTextNode(comment.text);
+    commentPara.appendChild(commentText);
+    return commentPara;
+}
+
+function getCommentData(comment){
+    var blockQuote = document.createElement("blockquote");
+    blockQuote.className = "blockquote mb-0";
+    blockQuote.appendChild(getCommentPara(comment));
+    // blockQuote.appendChild(getCommentFooter(comment));
+    return blockQuote;
+}
+
+function getCommentDiv(comment){
+    var commentDiv = document.createElement("div");
+    commentDiv.className = "commentbackground";
+    commentDiv.appendChild(getCommentData(comment));    
+    return commentDiv;
+}
+
+function addComments() {
+  productid = localStorage.getItem("productid");
+  fetch('/ideaComments?productid=' + productid).then(response => response.json()).then((comments) => {
+
+    var commentsContainer = document.getElementById('comments-container');
+    for(var i = 0; i < comments.length; i++){
+        var commentDiv = getCommentDiv(comments[i]);
+        var lineBreak = document.createElement("br");
+
+        commentsContainer.appendChild(commentDiv);
+        commentsContainer.appendChild(lineBreak);
+    }
+
+  });
+}

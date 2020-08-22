@@ -16,3 +16,13 @@
     font-weight: 600;
     color: #0062cc;
 }
+
+/*comment background css*/
+.commentbackground {
+	border-radius: 25px;
+    border: 2px solid #c99912;
+	padding: 20px; 
+ 	background: url("images/ancientPage.jpg");
+	background-position: left top;
+	background-repeat: repeat;
+}

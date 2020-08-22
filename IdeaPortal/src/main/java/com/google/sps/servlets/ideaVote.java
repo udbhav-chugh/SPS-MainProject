@@ -31,7 +31,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet("/ideaSurvey")
+@WebServlet("/ideaVote")
 public class ideaSurvey extends HttpServlet { 
 
   private static DatastoreService datastore;
@@ -52,18 +52,18 @@ public class ideaSurvey extends HttpServlet {
     Filter authorFilter = new FilterPredicate("authorId", FilterOperator.EQUAL, authorId);
 
     CompositeFilter filter = CompositeFilterOperator.and(productFilter, authorFilter);
-    Query query = new Query("Survey").setFilter(filter);
+    Query query = new Query("Vote").setFilter(filter);
     List<Entity> results = datastore.prepare(query).asList(FetchOptions.Builder.withDefaults());
-    Entity taskEntity = new Entity("Survey");
+    Entity taskEntity = new Entity("Vote");
     if(results.size()>0){
         taskEntity = results.get(0);
     }
-    Integer ageGroupCount = Integer.parseInt(request.getParameter("ageGroupCount"));
+    Integer voteValue = Integer.parseInt(request.getParameter("voteValue"));
     double sentimentAnalysisScore = 9.5;
 
     taskEntity.setProperty("productID",ideaComments.productID);
     taskEntity.setProperty("authorId",authorId);
-    taskEntity.setProperty("ageGroupCount",ageGroupCount);
+    taskEntity.setProperty("voteValue",voteValue);
 
     datastore.put(taskEntity);
 

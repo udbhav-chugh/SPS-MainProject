@@ -9,7 +9,7 @@ import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.gson.Gson;
-import com.google.sps.data.Vote;
+import com.google.sps.data.Survey;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,72 +22,62 @@ import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
 
-class ProjectVote{
+private static class ProjectAgeCount{
     private final long productID;
-    private long upvotes;
-    private long downvotes;
-
-    ProjectVote(final long productID){
+    private ArrayList<Integer> ageGroupCount;
+    
+    ProjectAgeCount(final long productID){
         this.productID= productID;
-        this.upvotes=0;
-        this.downvotes=0;
+        this.ageGroupCount = new ArrayList<Integer>();
+        ageGroupCount = new ArrayList<Integer>();
+        for(int i=0;i<4;i++)
+            ageGroupCount.add(0);
     }
 
-    void incrementUpvote(){
-        this.upvotes+= 1;
+    void incrementAgeCount(int index ){
+        if(index==-1)
+            return;
+        Integer value = this.ageGroupCount.get(index); // get value
+        value = value + 1; // increment value
+        this.ageGroupCount.set(index, value); // replace value
+       
     }
-    void incrementDownvote(){
-        this.downvotes+=1;
-    }
-
-    long getUpvotes(){
-        return this.upvotes;
-    }
-    long getDownvotes(){
-        return this.downvotes;
-    }
+   
 }
 
 /** Servlet responsible for listing tasks. */
-@WebServlet("/vote-response")
-public class VoteResponseServlet extends HttpServlet {
-    private static DatastoreService datastore;
-
-    public void init(){
-    datastore = DatastoreServiceFactory.getDatastoreService();
-    }
+@WebServlet("/age-count")
+public class SurveyDataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
     long productID= Long.parseLong(request.getParameter("productid"));
-    ProjectVote obj= getProjectVoteObject(productID) ;
+    ProjectAgeCount obj= getProjectAgeCountObject(productID) ;
+
     
     Gson gson = new Gson();
 
     response.setContentType("application/json;");
     response.getWriter().println(gson.toJson(obj));
   }
-  ProjectVote getProjectVoteObject(final long productID){
+
+
+  ProjectAgeCount getProjectAgeCountObject(final long productID){
       //iterate over results and create ProjectVote object
-      ProjectVote voteObj= new ProjectVote(productID);
+      ProjectAgeCount ageCountObj= new ProjectAgeCount(productID);
 
       PreparedQuery results= getQueryResults(productID);
 
       for (Entity entity : results.asIterable()) {
         long id = entity.getKey().getId();
         
-        long voteValue= (long) entity.getProperty("voteValue");
-       
-        if(voteValue==1)
-            voteObj.incrementUpvote();
-       
-        if(voteValue==-1)
-            voteObj.incrementDownvote();
+        int posValue= (int) entity.getProperty("ageGroupCount");
+        ageCountObj.incrementAgeCount(posValue);
+        }
 
-         }
+      return ageCountObj;
 
-      return voteObj;
 
   }
 
@@ -95,7 +85,7 @@ public class VoteResponseServlet extends HttpServlet {
       //build and prepare query results
         Filter projectIDFilter =
              new FilterPredicate("productID", FilterOperator.EQUAL, productID);
-        Query query = new Query("Vote").setFilter(projectIDFilter);
+        Query query = new Query("Survey").setFilter(projectIDFilter);
    
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();

@@ -43,10 +43,22 @@
     <div class="row">
         <div class="col-md-4">
             <br>
-            <!-- <div class="text-center">
-                <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#updateInfoForm">Update Information</a>
-            </div> -->
-            <!-- <br> -->
+            <div class="row">
+                <div class="col-md-6">
+                    <form id = "upvote-form" method = "POST" action="/ideaVote?voteValue=1">
+                    </form>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button class="btn btn-success" type="submit" form="upvote-form" value="Submit">Upvote</button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <form id = "downvote-form" method = "POST" action="/ideaVote?voteValue=-1">
+                    </form>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button class="btn btn-danger" type="submit" form="downvote-form" value="Submit">Downvote</button>
+                    </div>
+                </div>
+            </div>
             <div class="text-center">
                 <h2 class="section-heading text-uppercase">Idea Details</h2>
             </div>

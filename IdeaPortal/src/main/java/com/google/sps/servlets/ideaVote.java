@@ -32,7 +32,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 @WebServlet("/ideaVote")
-public class ideaSurvey extends HttpServlet { 
+public class ideaVote extends HttpServlet { 
 
   private static DatastoreService datastore;
   @Override

@@ -110,12 +110,23 @@ function getCardDescription(idea){
     return cardDescription;
 }
 
+function getIdeaInfoLink(idea){
+    var statsLink = document.createElement("button");
+    statsLink.className = "btn btn-dark";
+    var link = document.createTextNode("View in Detail");
+    statsLink.appendChild(link);
+    statsLink.onclick = function () {
+        localStorage.setItem("productid",idea.productID);
+        location.href = "/IdeaPage.html";
+    };
+    return statsLink;
+}
+
 function getStatsLink(idea){
     var statsLink = document.createElement("button");
     statsLink.className = "btn btn-dark";
     var link = document.createTextNode("Analyse Statistics");
     statsLink.appendChild(link);
-    // statsLink.href = "/charts.html";
     statsLink.onclick = function () {
         localStorage.setItem("productid",idea.productID);
         location.href = "/charts.html";
@@ -130,12 +141,14 @@ function getCardBody(idea){
     var cardTitle = getcardTitle(idea);
     var cardDescription = getCardDescription(idea);
     var lineBreak = document.createElement("br");
+    var ideaInfoLink = getIdeaInfoLink(idea);
     var statsLink = getStatsLink(idea);
     var lineBreak2 = document.createElement("br");
 
     cardBody.appendChild(cardTitle);
     cardBody.appendChild(cardDescription);
     cardBody.appendChild(lineBreak);
+    cardBody.appendChild(ideaInfoLink);
     cardBody.appendChild(statsLink);
     cardBody.appendChild(lineBreak2);
     return cardBody;

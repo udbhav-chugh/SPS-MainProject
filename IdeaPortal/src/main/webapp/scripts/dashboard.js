@@ -23,8 +23,8 @@ function getImage(info){
         img.src="/images/usericon.jpg";
     }
     img.style.borderRadius="50%";
-    img.style.width = "200"
-    img.style.height = "200"
+    img.style.width = "100"
+    img.style.height = "100"
     return img;
 }
 
@@ -157,7 +157,7 @@ function getCardBody(idea){
 function getIdeaCard(idea){
     var ideaCard = document.createElement("div");
     ideaCard.className = "card mb-3 text-center";
-    ideaCard.style.width = "22rem";
+    ideaCard.style.width = "20rem";
     ideaCard.style.margin = "1.5em";
     if(idea.imageUrl){
         var img = document.createElement("img"); 

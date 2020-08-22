@@ -35,7 +35,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ideaComments extends HttpServlet { 
 
   private static DatastoreService datastore;
-  public long productID;
+  public static long productID;
   @Override
   public void init(){
     datastore = DatastoreServiceFactory.getDatastoreService();
@@ -53,7 +53,7 @@ public class ideaComments extends HttpServlet {
     Filter authorFilter = new FilterPredicate("commentAuthorId", FilterOperator.EQUAL, commentAuthorId);
 
     CompositeFilter filter = CompositeFilterOperator.and(productFilter, authorFilter);
-    Query query = new Query("User").setFilter(filter);
+    Query query = new Query("Comment").setFilter(filter);
     List<Entity> results = datastore.prepare(query).asList(FetchOptions.Builder.withDefaults());
     Entity taskEntity = new Entity("Comment");
     if(results.size()>0){

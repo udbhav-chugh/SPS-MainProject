@@ -1,5 +1,6 @@
 package com.google.sps.servlets;
 import com.google.sps.data.Comment;
+import com.google.sps.servlets.ideaComments;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -44,37 +45,28 @@ public class ideaSurvey extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-    // Entity user = LoginServlet.getUser();
+    Entity user = LoginServlet.getUser();
 
-    // long commentAuthorId = user.getKey().getId();
+    long authorId = user.getKey().getId();
 
-    // Filter productFilter = new FilterPredicate("productID", FilterOperator.EQUAL, productID);
-    // Filter authorFilter = new FilterPredicate("commentAuthorId", FilterOperator.EQUAL, commentAuthorId);
+    Filter productFilter = new FilterPredicate("productID", FilterOperator.EQUAL, ideaComments.productID);
+    Filter authorFilter = new FilterPredicate("authorId", FilterOperator.EQUAL, authorId);
 
-    // CompositeFilter filter = CompositeFilterOperator.and(productFilter, authorFilter);
-    // Query query = new Query("User").setFilter(filter);
-    // List<Entity> results = datastore.prepare(query).asList(FetchOptions.Builder.withDefaults());
-    // Entity taskEntity = new Entity("Comment");
-    // if(results.size()>0){
-    //     taskEntity = results.get(0);
-    // }
-    // String text = request.getParameter("text");
-    // String suggestion = request.getParameter("suggestion");
-    // List<String> suggestionKeywords = new ArrayList<String>();
-    // suggestionKeywords.add("Groundbreaking");
-    // suggestionKeywords.add("Future");
-    // long timestamp = System.currentTimeMillis();
-    // double sentimentAnalysisScore = 9.5;
+    CompositeFilter filter = CompositeFilterOperator.and(productFilter, authorFilter);
+    Query query = new Query("Survey").setFilter(filter);
+    List<Entity> results = datastore.prepare(query).asList(FetchOptions.Builder.withDefaults());
+    Entity taskEntity = new Entity("Survey");
+    if(results.size()>0){
+        taskEntity = results.get(0);
+    }
+    Integer ageGroupCount = Integer.parseInt(request.getParameter("ageGroupCount"));
+    double sentimentAnalysisScore = 9.5;
 
-    // taskEntity.setProperty("productID",productID);
-    // taskEntity.setProperty("commentAuthorId",commentAuthorId);
-    // taskEntity.setProperty("text",text);
-    // taskEntity.setProperty("suggestion", suggestion);
-    // taskEntity.setProperty("suggestionKeywords", suggestionKeywords);
-    // taskEntity.setProperty("timestamp", timestamp);
-    // taskEntity.setProperty("sentimentAnalysisScore",sentimentAnalysisScore);
+    taskEntity.setProperty("productID",ideaComments.productID);
+    taskEntity.setProperty("authorId",authorId);
+    taskEntity.setProperty("ageGroupCount",ageGroupCount);
 
-    // datastore.put(taskEntity);
+    datastore.put(taskEntity);
 
     response.sendRedirect("/IdeaPage.html");
   }

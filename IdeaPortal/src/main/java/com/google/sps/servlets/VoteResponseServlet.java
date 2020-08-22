@@ -51,21 +51,23 @@ class ProjectVote{
 /** Servlet responsible for listing tasks. */
 @WebServlet("/vote-response")
 public class VoteResponseServlet extends HttpServlet {
+    private static DatastoreService datastore;
+
+    public void init(){
+    datastore = DatastoreServiceFactory.getDatastoreService();
+    }
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
     long productID= Long.parseLong(request.getParameter("productid"));
     ProjectVote obj= getProjectVoteObject(productID) ;
-
     
     Gson gson = new Gson();
 
     response.setContentType("application/json;");
     response.getWriter().println(gson.toJson(obj));
   }
-
-
   ProjectVote getProjectVoteObject(final long productID){
       //iterate over results and create ProjectVote object
       ProjectVote voteObj= new ProjectVote(productID);
@@ -75,23 +77,25 @@ public class VoteResponseServlet extends HttpServlet {
       for (Entity entity : results.asIterable()) {
         long id = entity.getKey().getId();
         
-        int voteValue= (int) entity.getProperty("voteValue");
+        long voteValue= (long) entity.getProperty("voteValue");
+       
         if(voteValue==1)
             voteObj.incrementUpvote();
+       
         if(voteValue==-1)
             voteObj.incrementDownvote();
-        }
+
+         }
 
       return voteObj;
-
 
   }
 
   PreparedQuery getQueryResults(final long productID){
       //build and prepare query results
-        Filter projectIDFilter =
+        Filter productIDFilter =
              new FilterPredicate("productID", FilterOperator.EQUAL, productID);
-        Query query = new Query("Vote").setFilter(projectIDFilter);
+        Query query = new Query("Vote").setFilter(productIDFilter);
    
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();

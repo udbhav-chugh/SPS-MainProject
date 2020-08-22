@@ -35,7 +35,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ideaComments extends HttpServlet { 
 
   private static DatastoreService datastore;
-  long productID;
+  public long productID;
   @Override
   public void init(){
     datastore = DatastoreServiceFactory.getDatastoreService();

@@ -6,7 +6,7 @@ import java.util.Arrays;
 public final class ProductIdea{
 
     enum categories {
-        Sustainbility,
+        Sustainability,
         Privacy,
         Agriculture,
         Tourism,

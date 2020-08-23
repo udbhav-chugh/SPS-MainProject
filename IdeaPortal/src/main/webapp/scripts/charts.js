@@ -36,6 +36,7 @@ function voteGraph() {
 
     const chart = new google.visualization.ColumnChart(document.getElementById('voteGraph-container'));
     chart.draw(data, options);
+    sentimentGraph();
   });
 }
 
@@ -74,6 +75,7 @@ function sentimentGraph() {
 
     const chart = new google.visualization.ColumnChart(document.getElementById('sentimentGraph-container'));
     chart.draw(data, options);
+    agegroupGraph(); 
   });
 }
 
@@ -138,6 +140,7 @@ function addSuggestions() {
         commentsContainer.appendChild(commentDiv);
         commentsContainer.appendChild(lineBreak);
     }
+    addKeywords();
 
   });
 }
@@ -158,6 +161,7 @@ function addKeywords() {
         ulist.appendChild(litem);
     }
     keywordsContainer.appendChild(ulist);
+    voteGraph();
 
   });
 }

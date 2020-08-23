@@ -78,6 +78,7 @@ function fetchIdea() {
     // ideasContainer.appendChild(ideaDiv);
     var ideaDiv = getIdeaDiv(idea);
     ideasContainer.appendChild(ideaDiv);
+    addComments();
   });
 }
 

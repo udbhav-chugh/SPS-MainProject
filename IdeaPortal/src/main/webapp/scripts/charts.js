@@ -137,32 +137,25 @@ function addSuggestions() {
         var commentDiv = getCommentDiv(comments[i]);
         var lineBreak = document.createElement("br");
 
+        var ulist = document.createElement("ul");
+        ulist.className="list-group";
+        var temp=comments[i].keyWords;
+        for(var j = 0; j < temp.length; j++){
+            var litem = document.createElement("li");
+            litem.className="list-group-item";
+            litem.innerHTML = temp[j];
+            ulist.appendChild(litem);
+        }
+
         commentsContainer.appendChild(commentDiv);
+        var headtag = document.createElement("h4");
+        headtag.innerHTML = "Keywords: ";
+        commentsContainer.appendChild(headtag);
+        commentsContainer.appendChild(ulist);
         commentsContainer.appendChild(lineBreak);
     }
-    addKeywords();
-
-  });
-}
-
-function addKeywords() {
-  productid = localStorage.getItem("productid");
-  console.log(productid);
-  fetch('/ideaSuggestions?productid=' + productid).then(response => response.json()).then((keywords) => {
-
-    var keywordsContainer = document.getElementById('keywords-container');
-    var ulist = document.createElement("ul");
-    ulist.className="list-group";
-    for(var i = 0; i < keywords.length; i++){
-        var litem = document.createElement("li");
-        litem.className="list-group-item";
-        console.log(keywords[i]);
-        litem.innerHTML = keywords[i];
-        ulist.appendChild(litem);
-    }
-    keywordsContainer.appendChild(ulist);
     voteGraph();
 
+
   });
 }
-

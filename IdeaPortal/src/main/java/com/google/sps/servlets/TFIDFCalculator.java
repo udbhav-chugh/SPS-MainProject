@@ -94,6 +94,18 @@ public class TFIDFCalculator {
         return docs_vectors;
     }
 
+    public  ArrayList<ArrayList<String>> tfidfWords(){
+        ArrayList<ArrayList<String>> docs_vectors= new ArrayList<ArrayList<String>>();
+        for(ArrayList<String> doc: docs){
+            ArrayList<String> doc_vec= new ArrayList<String>();
+            for(String word:hash_Set){
+                doc_vec.add(word);
+            }
+            docs_vectors.add(doc_vec);
+        }
+        return docs_vectors;
+    }
+
 
 
 

@@ -37,7 +37,7 @@ public class onFeedLoad extends HttpServlet {
     else
     {
         Filter categoryFilter = new FilterPredicate("category", FilterOperator.EQUAL, CategorySelected);
-        query = new Query("ProductIdea").setFilter(categoryFilter).addSort("timestamp", SortDirection.DESCENDING);
+        query = new Query("ProductIdea").setFilter(categoryFilter);
     }
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();

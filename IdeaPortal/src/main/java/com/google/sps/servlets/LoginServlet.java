@@ -45,6 +45,7 @@ public class LoginServlet extends HttpServlet {
 
   private static DatastoreService datastore;
   private static UserService userService;
+  private static String email;
 
   @Override
   public void init(){
@@ -59,12 +60,13 @@ public class LoginServlet extends HttpServlet {
 
     response.setContentType("text/html");
     if (request.getUserPrincipal() != null) {
-        Filter propertyFilter = new FilterPredicate("email", FilterOperator.EQUAL, request.getUserPrincipal().getName());
+        email = request.getUserPrincipal().getName();
+        Filter propertyFilter = new FilterPredicate("email", FilterOperator.EQUAL, email);
         Query query = new Query("User").setFilter(propertyFilter);
         List<Entity> results = datastore.prepare(query).asList(FetchOptions.Builder.withDefaults());
         if(results.size() == 0){
             Entity taskEntity = new Entity("User");
-            taskEntity.setProperty("email", request.getUserPrincipal().getName());
+            taskEntity.setProperty("email", email);
             datastore.put(taskEntity);
         }
         response.sendRedirect("/dashboard.html");
@@ -75,7 +77,9 @@ public class LoginServlet extends HttpServlet {
   }
 
   public static Entity getUser(HttpServletRequest request){
-    Filter propertyFilter = new FilterPredicate("email", FilterOperator.EQUAL, request.getUserPrincipal().getName());
+    Filter propertyFilter = new FilterPredicate("email", FilterOperator.EQUAL, email);
+    if(request.getUserPrincipal() != null)
+        propertyFilter = new FilterPredicate("email", FilterOperator.EQUAL, request.getUserPrincipal().getName());
     Query query = new Query("User").setFilter(propertyFilter);
     List<Entity> results = datastore.prepare(query).asList(FetchOptions.Builder.withDefaults());
     Entity user = results.get(0);

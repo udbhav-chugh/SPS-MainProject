@@ -99,7 +99,11 @@ public class ideaSuggestions extends HttpServlet {
                 if(Double.compare(key,tfidf.get(i).get(j))==0){
                     count+=1;
                     keyWords.add(documents.get(i).get(j));
+                    if(count==5)
+                        break;
                 }
+                if(count==5)
+                    break;
             }
         }
     } 

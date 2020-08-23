@@ -142,3 +142,23 @@ function addSuggestions() {
   });
 }
 
+function addKeywords() {
+  productid = localStorage.getItem("productid");
+  console.log(productid);
+  fetch('/ideaSuggestions?productid=' + productid).then(response => response.json()).then((keywords) => {
+
+    var keywordsContainer = document.getElementById('keywords-container');
+    var ulist = document.createElement("ul");
+    ulist.className="list-group";
+    for(var i = 0; i < keywords.length; i++){
+        var litem = document.createElement("li");
+        litem.className="list-group-item";
+        console.log(keywords[i]);
+        litem.innerHTML = keywords[i];
+        ulist.appendChild(litem);
+    }
+    keywordsContainer.appendChild(ulist);
+
+  });
+}
+

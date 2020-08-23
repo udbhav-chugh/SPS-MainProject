@@ -78,21 +78,6 @@ function getInfo(info){
     return infoDiv;
 }
 
-function addPersonalInfoToDashboard() {
-
-  fetch('/profile-info').then(response => response.json()).then((info) => {
-
-    var infoContainer = document.getElementById('info-container');    
-    infoContainer.appendChild(getImage(info));
-    var lineBreak = document.createElement("br");
-    var lineBreak2 = document.createElement("br");
-
-    infoContainer.appendChild(lineBreak);
-    infoContainer.appendChild(lineBreak2);
-    infoContainer.appendChild(getInfo(info));
-
-  });
-}
 
 function getcardTitle(idea){
     var cardTitle = document.createElement("h4");
@@ -187,6 +172,20 @@ function addIdeasToDashboard() {
         var ideaDiv = getIdeaDiv(ideas[i]);
         ideasContainer.appendChild(ideaDiv);
     }
+      fetch('/profile-info').then(response => response.json()).then((info) => {
+
+    var infoContainer = document.getElementById('info-container');    
+    infoContainer.appendChild(getImage(info));
+    var lineBreak = document.createElement("br");
+    var lineBreak2 = document.createElement("br");
+
+    infoContainer.appendChild(lineBreak);
+    infoContainer.appendChild(lineBreak2);
+    infoContainer.appendChild(getInfo(info));
+    fetchBlobstoreUrlAndShowForm();
+    fetchBlobstoreUrlAndShowIdeaForm();
+
+  });
 
   });
 }

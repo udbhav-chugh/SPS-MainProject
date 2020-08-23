@@ -69,7 +69,7 @@ public class PostIdeaServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-    Entity user = LoginServlet.getUser();
+    Entity user = LoginServlet.getUser(request);
     long userID = user.getKey().getId();
     // Get the input from the form.
     String title = request.getParameter("title");
@@ -97,7 +97,7 @@ public class PostIdeaServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Entity user = LoginServlet.getUser();
+    Entity user = LoginServlet.getUser(request);
     long userID = user.getKey().getId();
 
     Filter propertyFilter = new FilterPredicate("authorid", FilterOperator.EQUAL, userID);

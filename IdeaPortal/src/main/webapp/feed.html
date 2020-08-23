@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>Idea Analysis Portal</title>
+    <link rel="icon" href="/images/icon.jpeg" />
 
     <!-- fonts -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
@@ -41,12 +42,9 @@
     </nav>
 
 
-   <div class="hero-image">
-       <img id = "banner-container" class = "banner-image">
-    </div>
+   <div id="background-im">
 
     <div class="text-center">
-    <label for="categories">Choose a Category:</label>
     <div class="container-fluid">
     <div class="row">
     <div class="col-md-4">
@@ -55,7 +53,7 @@
     <select name="categories" id="categories" class="selectpicker show-menu-arrow form-control" data-live-search="true" onchange="loadFeed()">
 
         <option value="All" selected >All Categories</option>
-        <option value="Sustainbility">Sustainbility</option>
+        <option value="Sustainability">Sustainability</option>
         <option value="Privacy">Privacy</option>
         <option value="Agriculture">Agriculture</option>
         <option value="Tourism">Tourism</option>
@@ -70,6 +68,7 @@
     <div class="card-deck mt-3" style="margin-left: 0rem;"></div>
     <div id="ideas-container">
         <!-- Javascript appends ideas here -->
+    </div>
     </div>
 
 

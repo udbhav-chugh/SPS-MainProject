@@ -69,7 +69,7 @@ public class UpdateProfileServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-    Entity taskEntity = LoginServlet.getUser();
+    Entity taskEntity = LoginServlet.getUser(request);
     // Get the input from the form.
     String name = request.getParameter("name");
     Date dob = new Date();
@@ -97,15 +97,15 @@ public class UpdateProfileServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     
-    User user = getUserObject();
+    User user = getUserObject(request);
     String json = convertToJson(user);
     response.setContentType("application/json;");
     response.getWriter().println(json);
   }
 
-  private User getUserObject(){
+  private User getUserObject(HttpServletRequest request){
 
-    Entity entity = LoginServlet.getUser();
+    Entity entity = LoginServlet.getUser(request);
 
     String email = (String) entity.getProperty("email");
     String name = (String) entity.getProperty("name");

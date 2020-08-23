@@ -44,7 +44,7 @@ public class ideaSurvey extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-    Entity user = LoginServlet.getUser();
+    Entity user = LoginServlet.getUser(request);
 
     long authorId = user.getKey().getId();
 

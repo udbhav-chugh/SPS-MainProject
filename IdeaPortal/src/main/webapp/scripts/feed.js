@@ -1,17 +1,21 @@
 function loadFeed()
 {
-// const languageCode = document.getElementById('languages').value;
-//     console.log(languageCode);
 
-//     const params = new URLSearchParams();
-//     params.append('languageCode', languageCode);
+    const banner = document.getElementById('banner-container');
+    const category = document.getElementById('categories').value;
+    
+    var imgPath = category +".jpeg";
+    banner.src = "/images/"+imgPath;
+    const params = new URLSearchParams();
+    params.append('Category', category);
 
-//    var queryString = params.toString();
+   var queryString = params.toString();
 
-    fetch('/CommonFeed').then(response => response.json()).then(ideas => {
+    fetch('/CommonFeed/?'+ queryString).then(response => response.json()).then(ideas => {
 
         // Gets the element to add the comments
          const ideasContainer = document.getElementById('ideas-container');
+         ideasContainer.innerHTML = "";
          ideas.forEach((idea) => {
          var ideaDiv = getIdeaDiv(idea);
          ideasContainer.appendChild(ideaDiv);

@@ -14,6 +14,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.google.sps.data.ProductIdea;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.datastore.Query.CompositeFilter;
+import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
+import com.google.appengine.api.datastore.Query.Filter;
+import com.google.appengine.api.datastore.Query.FilterOperator;
+import com.google.appengine.api.datastore.Query.FilterPredicate;
 
 @WebServlet("/CommonFeed/*")
 public class onFeedLoad extends HttpServlet {
@@ -21,9 +26,19 @@ public class onFeedLoad extends HttpServlet {
 @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     
-    //Todo: Query String to be used for loading with sorting and filtering
+    String queryString = request.getQueryString();
+    String CategorySelected = queryString.substring(9);
+    Query query;
 
-    Query query = new Query("ProductIdea").addSort("timestamp", SortDirection.DESCENDING);
+    if(CategorySelected.equals("All"))
+       {
+            query  = new Query("ProductIdea").addSort("timestamp", SortDirection.DESCENDING); 
+       }
+    else
+    {
+        Filter categoryFilter = new FilterPredicate("category", FilterOperator.EQUAL, CategorySelected);
+        query = new Query("ProductIdea").setFilter(categoryFilter).addSort("timestamp", SortDirection.DESCENDING);
+    }
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
@@ -57,7 +72,7 @@ public class onFeedLoad extends HttpServlet {
   {
     Gson gson = new Gson();
     String json = gson.toJson(ideas);
-    System.out.println(json);
+
     return json;
   }
 }

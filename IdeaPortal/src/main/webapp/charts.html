@@ -7,6 +7,7 @@
   <script src="https://www.gstatic.com/charts/loader.js"></script>
 
     <title>Idea Analysis Portal</title>
+    <link rel="icon" href="/images/icon.jpeg" />
 
     <!-- fonts -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
@@ -24,7 +25,7 @@
   
   
 </head>
-<body onload="voteGraph(); sentimentGraph(); agegroupGraph(); addSuggestions();">
+<body onload="voteGraph(); sentimentGraph(); agegroupGraph(); addSuggestions(); addKeywords();">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
@@ -50,6 +51,12 @@
             </div>
             <br>
             <div id="suggestions-container">
+                <!-- Javascript appends personal info here -->
+            </div>
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">Keywords from Suggestions</h2>
+            </div>
+            <div id="keywords-container">
                 <!-- Javascript appends personal info here -->
             </div>
             

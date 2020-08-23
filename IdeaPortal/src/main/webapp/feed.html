@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>Idea Analysis Portal</title>
+    <link rel="icon" href="/images/icon.jpeg" />
 
     <!-- fonts -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
@@ -11,6 +12,8 @@
     <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
     <!-- Bootstrap and CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.css" />
+
     <link rel="stylesheet" href="css/feed.css">
 
     <!-- Material Design Bootstrap -->
@@ -39,35 +42,41 @@
     </nav>
 
 
-   <div class="hero-image">
-       <img id = "banner-container" class = "banner-image">
+   <div id="background-im">
+
+    <div class="text-center">
+    <div class="container-fluid">
+    <div class="row">
+    <div class="col-md-4">
     </div>
+    <div class="col-md-4">
+    <select name="categories" id="categories" class="selectpicker show-menu-arrow form-control" data-live-search="true" onchange="loadFeed()">
 
-    <!-- </div> -->
-    <label for="categories">Choose a Category:</label>
-
-                            <select name="categories" id="categories" onchange="loadFeed()">
-
-                                <option value="All" selected >All Categories</option>
-                                <option value="Sustainbility">Sustainbility</option>
-                                <option value="Privacy">Privacy</option>
-                                <option value="Agriculture">Agriculture</option>
-                                <option value="Tourism">Tourism</option>
-                                <option value="Others">Others</option>
-                            </select>
-        <div class="card-deck mt-3" style="margin-left: 0rem;"></div>
-            <div id="ideas-container">
-                <!-- Javascript appends ideas here -->
-            </div>
-
-    
-</div>
+        <option value="All" selected >All Categories</option>
+        <option value="Sustainability">Sustainability</option>
+        <option value="Privacy">Privacy</option>
+        <option value="Agriculture">Agriculture</option>
+        <option value="Tourism">Tourism</option>
+        <option value="Others">Others</option>
+    </select>
+    </div>
+    <div class="col-md-4">
+    </div>
+    </div>
+    </div>
+    </div>
+    <div class="card-deck mt-3" style="margin-left: 0rem;"></div>
+    <div id="ideas-container">
+        <!-- Javascript appends ideas here -->
+    </div>
+    </div>
 
 
     <!-- Bootstrap JS-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"></script>
 
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>

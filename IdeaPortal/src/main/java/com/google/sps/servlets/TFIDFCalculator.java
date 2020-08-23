@@ -1,4 +1,4 @@
-package com.guendouz.textclustering.preprocessing;
+package com.google.sps.servlets;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -94,32 +94,6 @@ public class TFIDFCalculator {
         return docs_vectors;
     }
 
-
-    public static void main(String[] args) {
-
-        //Example document
-        String test1= "this is a good idea Amazon Pantry might be a competitor";
-        String test1_array[]= test1.split(" ");
-        List<String> d1= Arrays.asList(test1_array);
-        ArrayList<String> doc1 = new ArrayList<String>(d1);
-       
-       //Example document
-       List<String> d2= Arrays.asList("hi", "idea", "at", "pro", "quo");
-        ArrayList<String> doc2 = new ArrayList<String>(d2);
-        
-        List<ArrayList<String>> docs=  Arrays.asList(doc1, doc2);
-        ArrayList<ArrayList<String>> documents= new ArrayList<ArrayList<String>>(docs);
-
-        //Create an instace of TFIDFCalculator to vectorize documents
-        TFIDFCalculator calculator = new TFIDFCalculator(documents);
-
-        //vectorize all the documents 
-        ArrayList<ArrayList<Double>> tfidf = calculator.tfidfDocumentsVector();
-        
-        System.out.println(tfidf);
-
-
-    }
 
 
 

@@ -1,11 +1,12 @@
 function loadFeed()
 {
 
-    const banner = document.getElementById('banner-container');
     const category = document.getElementById('categories').value;
-    
-    var imgPath = category +".jpeg";
-    banner.src = "/images/"+imgPath;
+    document.getElementById("background-im").style.backgroundImage = 'url(/images/' + category + '.jpg)';
+    document.getElementById("background-im").style.backgroundRepeat = 'no-repeat';
+    document.getElementById("background-im").style.backgroundSize = 'cover';
+    document.getElementById("background-im").style.backgroundPosition='center';
+    document.getElementById("background-im").style.minHeight='100%'
     const params = new URLSearchParams();
     params.append('Category', category);
 

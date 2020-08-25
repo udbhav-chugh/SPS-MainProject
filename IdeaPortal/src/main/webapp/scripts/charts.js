@@ -20,7 +20,7 @@ function voteGraph() {
   var productid=localStorage.getItem("productid")
   fetch('/vote-response?productid='+productid  ).then(response => response.json())
   .then((obj) => {
-      console.log(obj);
+      
     var data = new google.visualization.DataTable();
    
     data.addColumn('string', 'Upvote-Downvote');
@@ -30,11 +30,12 @@ function voteGraph() {
 
     const options = {
       'title': 'Vote Statistics',
-      'width':800,
-      'height':500
+      'width':600,
+      'height':500,
+      sliceVisibilityThreshold: 0
     };
 
-    const chart = new google.visualization.ColumnChart(document.getElementById('voteGraph-container'));
+    const chart = new google.visualization.PieChart(document.getElementById('voteGraph-container'));
     chart.draw(data, options);
     sentimentGraph();
   });
@@ -46,6 +47,8 @@ function sentimentGraph() {
   fetch('/sentiment-score?productid='+productid  ).then(response => response.json())
   .then((obj) => {
     
+
+
     var countArr = [0,0,0,0,0];
     for(var i=0;i<obj.length;i++){
         var value = obj[i]["sentimentAnalysisScore"];
@@ -61,19 +64,20 @@ function sentimentGraph() {
    
     data.addColumn('string', 'Percentage-Positiveness');
     data.addColumn('number', 'Number of Reviews');
-    data.addRow(["0-20%",countArr[0]]);
-    data.addRow(["20-40%",countArr[1]]);
-    data.addRow(["40-60%",countArr[2]]);
-    data.addRow(["60-80%",countArr[3]]);
-    data.addRow(["80-100%",countArr[4]]);
+    data.addRow(["Very Poor",countArr[0]]);
+    data.addRow(["Poor",countArr[1]]);
+    data.addRow(["Average",countArr[2]]);
+    data.addRow(["Good",countArr[3]]);
+    data.addRow(["Very Good",countArr[4]]);
 
     const options = {
-      'title': 'Sentiment Analysis Statistics',
-      'width':800,
-      'height':500
+      'title': 'Comments Sentiment Analysis Statistics',
+      'width':600,
+      'height':500,
+      sliceVisibilityThreshold: 0
     };
 
-    const chart = new google.visualization.ColumnChart(document.getElementById('sentimentGraph-container'));
+    const chart = new google.visualization.PieChart(document.getElementById('sentimentGraph-container'));
     chart.draw(data, options);
     agegroupGraph(); 
   });
@@ -84,7 +88,6 @@ function agegroupGraph() {
   var productid=localStorage.getItem("productid")
   fetch('/age-count?productid='+productid  ).then(response => response.json())
   .then((obj) => {
-      console.log(obj);
     var data = new google.visualization.DataTable();
    
     data.addColumn('string', 'Age Group Count');
@@ -95,12 +98,13 @@ function agegroupGraph() {
     data.addRow([">65",obj["ageGroupCount"][3]]);
 
     const options = {
-      'title': 'Age Group Survey Statistics',
-      'width':800,
-      'height':500
+      'title': 'Suitable Age Group Survey Statistics',
+      'width':600,
+      'height':500,
+      sliceVisibilityThreshold: 0
     };
 
-    const chart = new google.visualization.ColumnChart(document.getElementById('agegroupGraph-container'));
+    const chart = new google.visualization.PieChart(document.getElementById('agegroupGraph-container'));
     chart.draw(data, options);
   });
 }
@@ -146,12 +150,24 @@ function addSuggestions() {
             litem.innerHTML = temp[j];
             ulist.appendChild(litem);
         }
+        var containerfluid = document.createElement('div');
+        containerfluid.className='container-fluid';
+        var rowdiv = document.createElement('div');
+        rowdiv.className='row';
 
-        commentsContainer.appendChild(commentDiv);
-        var headtag = document.createElement("h4");
-        headtag.innerHTML = "Keywords: ";
-        commentsContainer.appendChild(headtag);
-        commentsContainer.appendChild(ulist);
+        var col1div = document.createElement('div');
+        col1div.className='col-md-8';
+        col1div.appendChild(commentDiv);
+
+        var col2div = document.createElement('div');
+        col2div.className='col-md-4';
+        col2div.appendChild(ulist);
+
+        rowdiv.appendChild(col1div);
+        rowdiv.appendChild(col2div);
+        containerfluid.appendChild(rowdiv);
+
+        commentsContainer.appendChild(containerfluid);
         commentsContainer.appendChild(lineBreak);
     }
     voteGraph();

@@ -131,7 +131,7 @@ public class ideaComments extends HttpServlet {
 
         SortedMap<Double, String> scoreMap = new TreeMap<Double, String>(Collections.reverseOrder());
         for(int j=0;j<tfidf.get(i).size();j++){
-            if(Double.compare(tfidf.get(i).get(j),0)==0)
+            if(suggestion.contains(documents.get(i).get(j))==false)
                 continue;
             scoreMap.put(tfidf.get(i).get(j),documents.get(i).get(j));
         }
